@@ -176,7 +176,7 @@ export default function UserAccountDetails() {
                   <FormTextarea id="feDescription" rows="5" />
                 </Col> */}
                 </Row>
-                <Button theme="accent" onClick={summit}>Update Account</Button>
+                <Button theme="accent" onClick={summit}>เเก้ไขข้อมูล</Button>
               </Form>
             </Col>
           </Row>

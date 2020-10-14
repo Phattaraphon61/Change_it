@@ -2,9 +2,11 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var multer = require("multer");
 app.use(cors());
 app.use(bodyParser.json())
 var mysql = require('mysql')
+var path = require('path');
 var dbs = mysql.createConnection({
     host: 'change-it.tk',
     user: 'change-it',
@@ -16,8 +18,28 @@ require('./app/router/router.js')(app);
 const db = require('./app/config/db.config.js');
 
 const Role = db.role;
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+  
+	  cb(null, "./uploads");
+	},
+	filename: (req, file, cb) => {
+  
+	  const newFilename = file.originalname;
+	  cb(null, newFilename);
+	},
+  });
+
+const upload = multer({ storage });
+
+app.post("/image", upload.single("selectedFile"), (req, res) => {
+	res.send('helloooojjjjjjjjjjjjj')
+  });
 
 
+app.use('/image/:name', function (req, res) {
+	res.sendFile(path.resolve(__dirname, `./uploads/${req.params.name}`));
+  })
 
 app.post("/test", (req, res) => {
 	const dbss = require('./app/config/db.config.js');
