@@ -1,4 +1,4 @@
-import React, { Component,useState } from "react";
+import React, { Component,useState,useEffect } from "react";
 import {Col } from "shards-react";
 import {signin} from "../function/signin"
 import jwt_decode from "jwt-decode";
@@ -7,6 +7,10 @@ export default function Signin() {
 const [email, setemail] = useState()
 const [password, setpassword] = useState()
 // const navigate = useNavigate();
+
+useEffect(() => {
+  localStorage.removeItem('usertoken');
+}, [])
 
 
   const senddata = ()=>{
