@@ -14,6 +14,7 @@ import {
   FormTextarea,
   Button
 } from "shards-react";
+import axios from "axios"
 import jwt_decode from "jwt-decode";
 
 export default function UserAccountDetails() {
@@ -23,10 +24,12 @@ export default function UserAccountDetails() {
   const [password, setpassword] = useState()
   const [address, setaddress] = useState("decoded.name")
   const [city, setcity] = useState("decoded.name")
+  const [iduser, setiduser] = useState()
   useEffect(() => {
     if(localStorage.usertoken !== undefined){
       const token = localStorage.usertoken;
       const decoded = jwt_decode(token);
+      setiduser(decoded.id)
       setname(decoded.name)
       setlastname(decoded.lname)
       setemail(decoded.email)
@@ -39,6 +42,29 @@ export default function UserAccountDetails() {
     }  
   }, [])
   // console.log("iddd",token)
+
+
+  const summit = () =>{
+    let data = {
+      id: iduser,
+      name: name,
+      lname: lastname,
+      email: email,
+      address:address,
+      city : city,
+    }
+    
+    axios.post("http://localhost:8080/test",{data}).then(res =>{
+      // console.log("fffffffffff",res) 
+      if (res.data !== "Erro" && res.data !== undefined) {
+        localStorage.setItem("usertoken", res.data);
+        window.location = '/editprofile';
+        
+    }else {
+    }
+    })
+  }
+ 
   return (
 <Card small className="mb-4">
     <CardHeader className="border-bottom">
@@ -85,7 +111,7 @@ export default function UserAccountDetails() {
                   />
                 </Col>
                 {/* Password */}
-                <Col md="6" className="form-group">
+                {/* <Col md="6" className="form-group">
                   <label htmlFor="fePassword">รหัสผ่าน</label>
                   <FormInput
                     type="password"
@@ -95,7 +121,7 @@ export default function UserAccountDetails() {
                     onChange={(e) => {setpassword(e.target.value)}}
                     autoComplete="current-password"
                   />
-                </Col>
+                </Col> */}
               </Row>
               <FormGroup>
                 <label htmlFor="feAddress">ที่อยู่</label>
@@ -142,7 +168,7 @@ export default function UserAccountDetails() {
                   <FormTextarea id="feDescription" rows="5" />
                 </Col> */}
               </Row>
-              <Button theme="accent">Update Account</Button>
+              <Button theme="accent" onClick={summit}>Update Account</Button>
             </Form>
           </Col>
         </Row>
