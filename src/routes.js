@@ -28,7 +28,7 @@ export default [
           <UserProfileLite />
         </DefaultLayout>
       </Route>
-      <Route path="/singin">
+      <Route path="/signin">
         <Test>
           <Signin />
         </Test>

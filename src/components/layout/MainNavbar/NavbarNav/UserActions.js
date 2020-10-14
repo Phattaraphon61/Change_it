@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState,useEffect}from "react";
 import { Link } from "react-router-dom";
 import {
   Dropdown,
@@ -12,8 +12,19 @@ import {
 import jwt_decode from "jwt-decode";
 
 export default function UserActions() {
-  const token = localStorage.usertoken;
-  const decoded = jwt_decode(token);
+  const [decoded, setdecoded] = useState()
+
+  useEffect(() => {
+    if(localStorage.usertoken !== undefined){
+      const token = localStorage.usertoken;
+      setdecoded(jwt_decode(token))
+    }else{
+      // window.history.pushState(null, null, '/signin')
+      window.location = "/signin"
+    }  
+  }, [])
+  
+
 
   return (
     <NavItem tag={Dropdown} caret >
@@ -24,7 +35,8 @@ export default function UserActions() {
           src={"https://s.isanook.com/wo/0/rp/r/w728/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL3dvLzAvdWQvMjcvMTM1NTY5L2wxLmpwZw==.jpg"}
           alt="User Avatar"
         />{" "}
-        <span className="d-none d-md-inline-block ">{decoded.name+" "+decoded.lname}</span>
+        {decoded !== undefined ?<span className="d-none d-md-inline-block ">{`${decoded.name}  ${decoded.lname}`}</span>:<span className="d-none d-md-inline-block ">{""}</span>}
+        
       </DropdownToggle>
       {/* <Collapse tag={DropdownMenu} right small open={this.state.visible}>
       <DropdownItem tag={Link} to="user-profile">

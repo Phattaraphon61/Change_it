@@ -10,6 +10,7 @@ export default function() {
       title: "สิ่งของทั้งหมด",
       htmlBefore: '<i class="material-icons">shopping_basket</i>',
       to: "/things",
+
     },
     {
       title: "เพิ่มสิ่งของ",
@@ -44,7 +45,7 @@ export default function() {
     {
       title: "ออกจากระบบ",
       htmlBefore: '<i class="material-icons">login</i>',
-      to: "singin",
+      to: "/signin",
     },
     // {
     //   title: "Errors",

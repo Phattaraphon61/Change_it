@@ -3,64 +3,17 @@ import ReactDOM from 'react-dom';
 import { Col } from "shards-react";
 import '../shards-dashboard/styles/Chat.css'
 import io from 'socket.io-client'
+import Datachat from './Datachat'
 
 export default function Formchat(props) {
   const { id, ...rest } = props;
-  const socket = io.connect('http://localhost:30')
-
+  const socket = io.connect('http://localhost:3020')
 
   console.log("ddd")
   return (
       <div class="mesgs">
         <div class="msg_history">
-
-
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" /> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>Test which is a new approach to have all
-				solutions</p>
-                  <span class="time_date"> 11:01 AM    |    June 9</span></div>
-              </div>
-            </div>
-
-              <div class="outgoing_msg">
-                <div class="sent_msg">
-                  <img src="https://www.thebangkokinsight.com/wp-content/uploads/2019/09/batch_2-3.jpeg" alt="sunil" style={{ width: "40%" }} />
-                  <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-              </div>
-
-
-              <div class="incoming_msg">
-                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" /> </div>
-                <div class="received_msg">
-                  <div class="received_withd_msg">
-                    <p>Test, which is a new approach to have</p>
-                    <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-                </div>
-              </div>
-
-
-              <div class="outgoing_msg">
-                <div class="sent_msg">
-                  <p>Apollo University, Delhi, India Test</p>
-                  <span class="time_date"> 11:01 AM    |    Today</span> </div>
-              </div>
-
-
-              <div class="incoming_msg">
-                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" /> </div>
-                <div class="received_msg">
-                  <div class="received_withd_msg">
-                    <p>We work directly with our designers and suppliers,
-                    and sell direct to you, which means quality, exclusive
-				products, at a price anyone can afford.</p>
-                    <span class="time_date"> 11:01 AM    |    Today</span></div>
-                </div>
-              </div>
-
-
+          <Datachat  id={id}/>
             </div>
 
 

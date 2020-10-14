@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   Card,
@@ -17,14 +17,28 @@ import {
 import jwt_decode from "jwt-decode";
 
 export default function UserAccountDetails() {
-  const token = localStorage.usertoken;
-  const decoded = jwt_decode(token);
-  const [name, setname] = useState(decoded.name)
-  const [lastname, setlastname] = useState(decoded.lname)
-  const [email, setemail] = useState(decoded.email)
+  const [name, setname] = useState("decoded.name")
+  const [lastname, setlastname] = useState("decoded.name")
+  const [email, setemail] = useState("decoded.name")
   const [password, setpassword] = useState()
-  const [address, setaddress] = useState(decoded.address)
-  const [city, setcity] = useState(decoded.city)
+  const [address, setaddress] = useState("decoded.name")
+  const [city, setcity] = useState("decoded.name")
+  useEffect(() => {
+    if(localStorage.usertoken !== undefined){
+      const token = localStorage.usertoken;
+      const decoded = jwt_decode(token);
+      setname(decoded.name)
+      setlastname(decoded.lastname)
+      setemail(decoded.email)
+      setpassword('')
+      setaddress(decoded.address)
+      setcity(decoded.city)
+    }else{
+      // window.history.pushState(null, null, '/signin')
+      window.location = "/signin"
+    }  
+  }, [])
+  // console.log("iddd",token)
   return (
 <Card small className="mb-4">
     <CardHeader className="border-bottom">
