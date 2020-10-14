@@ -3,8 +3,6 @@ import {Col } from "shards-react";
 import {signin} from "../function/signin"
 import jwt_decode from "jwt-decode";
 
-// import {useNavigate} from "react-router-dom";
-
 export default function Signin() {
 const [email, setemail] = useState()
 const [password, setpassword] = useState()

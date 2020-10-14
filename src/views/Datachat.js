@@ -31,9 +31,9 @@ export default function Datachat(props) {
                 <div class="sent_msg">
                     {data.typevalue == "text" ?
                         <p>{data.value}</p> :
-                        <img src={data.value} alt="sunil" style={{ width: "40%" }} />}
+                        <img src={data.value} alt="sunil" style={{ width: "400px" }} />}
 
-    <span class="time_date">{data.date}</span> </div>
+    <span   span class="time_date">{data.date}</span> </div>
             </div>
             :
             <div class="incoming_msg">
@@ -42,7 +42,7 @@ export default function Datachat(props) {
                     <div class="received_withd_msg">
                         {data.typevalue == "text" ?
                             <p>{data.value}</p> :
-                            <img src={data.value} alt="sunil" style={{ width: "40%" }} />}
+                            <img src={data.value} alt="sunil" style={{ width: "400px" }} />}
                         <span class="time_date">{data.date}</span></div>
                 </div>
             </div>

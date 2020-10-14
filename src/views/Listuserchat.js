@@ -10,6 +10,7 @@ import jwt_decode from "jwt-decode";
 export default function Listuserchat() {
   const socket = io.connect('http://localhost:3020')
   const [list, setlist] = useState([])
+  const [idd, setidd] = useState()
 
 
   const [num, setnum] = useState(1)
@@ -18,17 +19,22 @@ export default function Listuserchat() {
       const token = localStorage.usertoken;
       const decoded = jwt_decode(token)
       let id = decoded.id
+      setidd(id)
       setnum(0)
+
+      
       socket.emit('listchat', { id })
 
-      socket.on('listdata', ({ lists }) => {
-        setlist([])
-        if (num === 1) {
-          console.log('rr', list)
+      socket.on('listdata', ({ lists ,idss}) => {
+       if(idss === id){
+         if (num === 1) {
+          console.log('rr', list.length)
           console.log("lll", lists)
           setlist(lists)
           setnum(0)
         }
+       }
+        
 
       })
     } else {
@@ -60,6 +66,8 @@ export default function Listuserchat() {
 
             {
               list.map((data) => (
+                console.log("ddddddddddddddd",data.idd),
+                data.idd == idd ?
                 <a href={`/chat/${data.id}`}>
                   <div class="chat_list active_chat"  >
                     <div class="chat_people">
@@ -71,6 +79,7 @@ export default function Listuserchat() {
                     </div>
                   </div>
                 </a>
+                :null
               ))
             }
 
