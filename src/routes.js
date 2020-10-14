@@ -18,6 +18,7 @@ import Signin from "./views/Signin"
 import Chat from "./views/Chat"
 import Dialog from "./views/dialog"
 import Addproduct from "./views/Addproduct"
+import Register from './views/Register'
 
 export default [
 
@@ -31,6 +32,11 @@ export default [
       <Route path="/signin">
         <Test>
           <Signin />
+        </Test>
+      </Route>
+      <Route path="/register">
+        <Test>
+          <Register />
         </Test>
       </Route>
 

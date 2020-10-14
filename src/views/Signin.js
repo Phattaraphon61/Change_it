@@ -59,7 +59,7 @@ const [password, setpassword] = useState()
 
                 <button type="submit" className="btn btn-primary btn-block" onClick={senddata}>ยืนยัน</button>
                 <p className="forgot-password text-right">
-                    ลืม <a >รหัสผ่าน?</a>
+                  <a href="/register">สมัครสมาชิก</a>
                 </p>
 
             </Col>
