@@ -10,7 +10,8 @@ var db = mysql.createConnection({
 })
 
 var datachat = [];
-var lists = []
+var lists = [];
+var mge = [];
 io.on('connection', socket => {
 
 
@@ -33,7 +34,7 @@ io.on('connection', socket => {
                 })
             }
             }).on('end', function () {
-                console.log("ddd",lists)
+                // console.log("ddd",lists)
                 io.emit('listdata',{lists})
                 lists = []
                 
@@ -41,9 +42,9 @@ io.on('connection', socket => {
     })
 
     socket.on('getdata', ({ id, iduser }) => {
-        db.query(`SELECT * FROM roomchat WHERE iduser1 = ${id} AND iduser2 = ${iduser} `)
-            .on('result', function (value) {
-                db.query(`SELECT * FROM Chat WHERE idroom = ${value.idroom} `)
+        console.log("ddd",id,iduser)
+       
+                db.query(`SELECT * FROM Chat WHERE idroom = ${id} `)
                 .on('result',function(data){
                     datachat.push({
                         id: data.idusersend,
@@ -56,24 +57,32 @@ io.on('connection', socket => {
                     io.emit("senddatachat", ({ datachat }))
                     datachat = []
                 })
-            })
-        db.query(`SELECT * FROM roomchat WHERE iduser1 = ${iduser}  AND iduser2 =  ${id} `)
-            .on('result', function (value) {
-                db.query(`SELECT * FROM Chat WHERE idroom = ${value.idroom} `)
-                .on('result',function(data){
-                    datachat.push({
-                        id: data.idusersend,
-                        typevalue: data.typevalue,
-                        value: data.value,
-                        date: data.date,
-                        
-                    })
-                }).on('end', function () {
-                    io.emit("senddatachat", ({ datachat }))
-                    datachat = []
-                })
-            })
 
+    })
+
+
+    socket.on('sendmge',({id,data,idusersend})=>{
+        console.log(id,data,idusersend)
+    var sql = "INSERT INTO Chat (idroom,value,typevalue,date,idusersend) VALUES ?"
+    var values = [id,data,"text","55",idusersend];
+    db.query(sql, [[values]], function (err, result) {
+        if (err) throw err;
+        db.query(`SELECT * FROM Chat WHERE idroom = ${id} `)
+        .on('result',function(data){
+            datachat.push({
+                id: data.idusersend,
+                typevalue: data.typevalue,
+                value: data.value,
+                date: data.date,
+                
+            })
+        }).on('end', function () {
+            io.emit("senddatachat", ({ datachat }))
+            datachat = []
+        })
+
+    })
+        
     })
 });
 server.listen(3020);

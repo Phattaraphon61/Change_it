@@ -21,14 +21,15 @@ const [password, setpassword] = useState()
       if (res !== "err" && res !== "password") {
         const token = localStorage.usertoken;
         const decoded = jwt_decode(token);
-        if (decoded.role == "USER") {
+        if (decoded.role === "USER") {
           // window.open("/things");
-          window.location = 'http://localhost:3000/things';
+          console.log("ddddddddd")
+          window.location = '/things';
         } else if (decoded.role == "Admin") {
             // navigate("/admin/dashboard");
         }
     }else{
-      window.location = 'http://localhost:3000/singin';
+      // window.location = '/singin';
     }
     }
       // navigate("/things")

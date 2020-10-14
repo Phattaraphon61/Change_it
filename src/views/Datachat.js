@@ -7,7 +7,6 @@ export default function Datachat(props) {
     const { id, ...rest } = props;
     const [msg, setmsg] = useState([])
     const socket = io.connect('http://localhost:3020')
-    console.log("dfdfs", id)
     useEffect(() => {
         if(localStorage.usertoken !== undefined){
             const token = localStorage.usertoken;
@@ -23,7 +22,7 @@ export default function Datachat(props) {
                 })
             }
           }else{
-            window.location = "/signin"
+            // window.location = "/signin"
           }  
     }, [])
     return (msg.map((data) => {
