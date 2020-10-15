@@ -12,7 +12,48 @@ var db = mysql.createConnection({
 var datachat = [];
 var lists = [];
 var mge = [];
+var product = [];
 io.on('connection', socket => {
+
+    socket.on('getproduct',({getdata}) =>{
+        db.query(`SELECT * FROM product`)
+	.on('result',function(value){
+        console.log(value.ownerid)
+		db.query(`SELECT * FROM users WHERE id = ${value.ownerid}`)
+		.on('result',function(data){
+            console.log(data.name)
+			db.query(`SELECT * FROM imageproduct WHERE idproduct = ${value.id} LIMIT 1 ` )
+			.on('result',function(testdata){
+                console.log("dddddd",testdata.name)
+				product.push({
+					backgroundImage: testdata.name ,
+					category: value.type,
+					categoryTheme: value.theme,
+					author: data.name,
+					authorAvatar: data.image,
+					title: value.title,
+					body: value.dis,
+					date: value.city,
+					id: value.id,
+				  })
+
+			}).on('end',function(){
+                console.log("dd",product)
+                io.emit("senddataproduct",{product})
+                product = []
+            })
+			
+		})
+		
+	}).on('end', function () {
+        console.log("dfdfdfdf",product)
+        // io.emit("senddataproduct",{product})
+        // console.log("ddfdfdfdf")
+        
+
+	})
+
+    })
 
 
     

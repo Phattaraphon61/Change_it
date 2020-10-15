@@ -208,6 +208,8 @@ export default function Addproduct() {
   const [currency, setCurrency] = useState('plzselect');
   const [age, setAge] = useState('');
   const [iduser, setiduser] = useState()
+  const [username, setusername] = useState()
+  const [urlimage, seturlimage] = useState()
   const [dis, setdis] = useState()
   let nameimg = [];
   const bull = <span className={classes.bullet}>•</span>;
@@ -216,6 +218,8 @@ export default function Addproduct() {
       const token = localStorage.usertoken;
       const decoded = jwt_decode(token);
       setiduser(decoded.id)
+      setusername(decoded.name)
+      seturlimage(decoded.image)
     } else {
       // window.history.pushState(null, null, '/signin')
       window.location = "/signin"
@@ -262,6 +266,7 @@ export default function Addproduct() {
 
     })
     setTimeout(function() {
+      console.log("dfdfdfdffffffffffff",nameimg[0])
       adddata()
     }, 1000);
 
@@ -277,7 +282,10 @@ const adddata = () =>{
     dis: dis,
     currency:currency,
     provincess:city,
-    id: iduser
+    id: iduser,
+    username: username,
+    urlimage: urlimage,
+    imageproduct: nameimg[0]
 
   }
   axios.post("http://localhost:8080/addproduct", { data }).then(res => {
@@ -287,7 +295,7 @@ const adddata = () =>{
 }
 
 const addimage = (id) =>{
-  
+    console.log("id user =>",id,nameimg)
     nameimg.map((value) =>{
       let data = {
         id:id,
@@ -297,6 +305,8 @@ const addimage = (id) =>{
 
       })
     })
+
+    window.location = "/addproduct"
 
 }
 

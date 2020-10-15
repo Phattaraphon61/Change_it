@@ -191,8 +191,16 @@ export default function UserProfileLite() {
                     width="110"
                   />}
 
-                <BButton
-                  style={{ marginLeft: "60px" }}
+               
+
+
+                {/* <Badge >
+          1
+        </Badge> */}
+
+              </div>
+              <BButton
+                style={{marginBottom:"20px"}}
                   variant="outlined"
                   color="primary"
                   component="label"
@@ -214,13 +222,6 @@ export default function UserProfileLite() {
                     }}
                   />
                 </BButton>
-
-
-                {/* <Badge >
-          1
-        </Badge> */}
-
-              </div>
               {userDetails !== undefined ? <h4 className="mb-5">{userDetails.name}</h4> : <h4 className="mb-5">{""}</h4>}
               {/* <span className="text-muted d-block mb-2">{userDetails.jobTitle}</span> */}
               {/* <Button pill outline size="sm" className="mb-2">

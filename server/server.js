@@ -18,7 +18,8 @@ require('./app/router/router.js')(app);
 
 const db = require('./app/config/db.config.js');
 const Role = db.role;
-let imagename = []
+let imagename = [];
+let product = [];
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
 
@@ -46,6 +47,33 @@ app.use('/image/:name', function (req, res) {
 	res.sendFile(path.resolve(__dirname, `./uploads/${req.params.name}`));
 })
 
+app.get("/getproduct",(req,res) =>{
+	dbs.query(`SELECT * FROM product`)
+	.on('result',function(value){
+
+		product.push({
+			backgroundImage: value.titleimage,
+			category: value.type,
+			categoryTheme: value.theme,
+			author: value.ownername,
+			authorAvatar: value.ownerimage,
+			title: value.title,
+			body: value.dis,
+			date: value.city,
+			id: value.id
+		  })
+
+	}).on('end', function () {
+		console.log("product",product)
+		res.json(product)
+		product = []
+
+	})
+})
+
+
+
+
 app.post("/addimageproduct", (req, res) => {
 
 	var sql = "INSERT INTO imageproduct (idproduct,name) VALUES ?"
@@ -58,15 +86,11 @@ app.post("/addimageproduct", (req, res) => {
 
 });
 
-
-
-
-
 app.post("/addproduct", (req, res) => {
 
-	var sql = "INSERT INTO product (type,theme,title,dis,city,ownerid) VALUES ?"
+	var sql = "INSERT INTO product (type,theme,title,dis,city,ownerid,ownername,ownerimage,titleimage) VALUES ?"
 
-	var values = [`${req.body.data.currency}`, `${req.body.data.theme}`, `${req.body.data.nameproduct}`, `${req.body.data.dis}`, `${req.body.data.provincess}`, `${req.body.data.id}`];
+	var values = [`${req.body.data.currency}`, `${req.body.data.theme}`, `${req.body.data.nameproduct}`, `${req.body.data.dis}`, `${req.body.data.provincess}`, `${req.body.data.id}`,`${req.body.data.username}`,`${req.body.data.urlimage}`,`${req.body.data.imageproduct}`];
 	dbs.query(sql, [[values]], function (err, result) {
 		if (err) throw err;
 		dbs.query(`SELECT * FROM product WHERE ownerid  = '${req.body.data.id}' ORDER BY id DESC LIMIT 1`)
