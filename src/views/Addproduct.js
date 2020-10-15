@@ -1,51 +1,203 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect ,useState} from "react";
 import ReactDOM from 'react-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
 import '../shards-dashboard/styles/Addproduct.css'
 // import $ from "jquery"
 
 const currencies = [
   {
-    value: 'USD',
-    label: '$',
+    value: 'plzselect',
+    label: 'เลือกหมวดหมู่',
   },
   {
-    value: 'EUR',
-    label: '€',
+    value: 'Book',
+    label: 'หนังสือ',
   },
   {
-    value: 'BTC',
-    label: '฿',
+    value: 'Bueaty',
+    label: 'ความงาม',
   },
   {
-    value: 'JPY',
-    label: '¥',
+    value: 'game',
+    label: 'เกม',
+  },
+  {
+    value: 'Media',
+    label: 'มีเดีย',
+  },
+  {
+    value: 'Toys',
+    label: 'ของเล่น',
+  },
+  {
+    value: 'Electrical',
+    label: 'เครื่องใช้ไฟฟ้า',
+  },
+  {
+    value: 'MenFashion',
+    label: 'แฟชั่นชาย',
+  },
+  {
+    value: 'Electronic',
+    label: 'อุปกรณ์อิเล็กทรอนิกส์',
+  },
+  {
+    value: 'WomenFashion',
+    label: 'แฟชั่นผู้หญิง',
+  },
+  {
+    value: 'HomeAndGarden',
+    label: 'บ้านและสวน',
+  },
+  {
+    value: 'Outdoor',
+    label: 'กลางแจ้ง',
+  },
+  {
+    value: 'Fitness',
+    label: 'ฟิตเนส',
   },
 ];
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    minWidth: 275,
+    '& > *': {
+      margin: theme.spacing(1),
+    },
   },
   paper: {
-    padding: theme.spacing(4),
+    padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
   '& .MuiTextField-root': {
-    margin: theme.spacing(4),
+    margin: theme.spacing(2),
     width: '25ch',
+  },
+  formControl: {
+    margin: theme.spacing(2),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+  input: {
+    display: 'none',
   },
 }));
 
+
 export default function Addproduct() {
+  const [provincess, setProvincess] = useState([
+    { title: 'กรุงเทพมหานคร' },
+    { title: 'สมุทรปราการ' },
+    { title: 'นนทบุรี' },
+    { title: 'ปทุมธานี' },
+    { title: 'พระนครศรีอยุธยา' },
+    { title: 'อ่างทอง' },
+    { title: 'ลพบุรี' },
+    { title: 'สิงห์บุรี' },
+    { title: 'ชัยนาท' },
+    { title: 'สระบุรี' },
+    { title: 'ชลบุรี' },
+    { title: 'ระยอง' },
+    { title: 'จันทบุรี' },
+    { title: 'ตราด' },
+    { title: 'ฉะเชิงเทรา' },
+    { title: 'ปราจีนบุรี' },
+    { title: 'นครนายก' },
+    { title: 'สระแก้ว' },
+    { title: 'นครราชสีมา' },
+    { title: 'บุรีรัมย์' },
+    { title: 'สุรินทร์' },
+    { title: 'ศรีสะเกษ' },
+    { title: 'อุบลราชธานี' },
+    { title: 'ยโสธร' },
+    { title: 'ชัยภูมิ' },
+    { title: 'อำนาจเจริญ' },
+    { title: 'หนองบัวลำภู' },
+    { title: 'ขอนแก่น' },
+    { title: 'อุดรธานี' },
+    { title: 'เลย' },
+    { title: 'หนองคาย' },
+    { title: 'มหาสารคาม' },
+    { title: 'ร้อยเอ็ด' },
+    { title: 'กาฬสินธุ์' },
+    { title: 'สกลนคร' },
+    { title: 'นครพนม' },
+    { title: 'มุกดาหาร' },
+    { title: 'เชียงใหม่' },
+    { title: 'ลำพูน' },
+    { title: 'ลำปาง' },
+    { title: 'อุตรดิตถ์' },
+    { title: 'แพร่' },
+    { title: 'น่าน' },
+    { title: 'พะเยา' },
+    { title: 'เชียงราย' },
+    { title: 'แม่ฮ่องสอน' },
+    { title: 'นครสวรรค์' },
+    { title: 'อุทัยธานี' },
+    { title: 'กำแพงเพชร' },
+    { title: 'ตาก' },
+    { title: 'สุโขทัย' },
+    { title: 'พิษณุโลก' },
+    { title: 'พิจิตร' },
+    { title: 'เพชรบูรณ์' },
+    { title: 'ราชบุรี' },
+    { title: 'กาญจนบุรี' },
+    { title: 'สุพรรณบุรี' },
+    { title: 'นครปฐม' },
+    { title: 'สมุทรสาคร' },
+    { title: 'สมุทรสงคราม' },
+    { title: 'เพชรบุรี' },
+    { title: 'ประจวบคีรีขันธ์' },
+    { title: 'นครศรีธรรมราช' },
+    { title: 'กระบี่' },
+    { title: 'พังงา' },
+    { title: 'ภูเก็ต' },
+    { title: 'สุราษฎร์ธานี' },
+    { title: 'ระนอง' },
+    { title: 'ชุมพร' },
+    { title: 'สงขลา' },
+    { title: 'สตูล' },
+    { title: 'ตรัง' },
+    { title: 'พัทลุง'   },
+    { title: 'ปัตตานี' },
+    { title: 'ยะลา' },
+    { title: 'นราธิวาส' },
+    { title: 'บึงกาฬ' }
+  ]);
   const classes = useStyles();
   const [value, setValue] = React.useState('');
-  const [currency, setCurrency] = React.useState('EUR');
+  const [currency, setCurrency] = React.useState('plzselect');
+  const [age, setAge] = React.useState('');
+  const bull = <span className={classes.bullet}>•</span>;
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -56,20 +208,24 @@ export default function Addproduct() {
 
   return (
     <div className={classes.root}>
-      <Grid 
-        container
-        justify="center"
-        alignItems="center"
-        >
 
-        <br></br>
-        <h1>เกี่ยวกับสิ่งของของฉัน</h1>
-        <br></br>
+      <br></br>
+      <center><h2><b>สินค้าของฉัน</b></h2></center>
+      <br></br>
 
-        <Grid item xs={9}>
+      <Grid
+          container
+          direction="row"
+          justify="space-evenly"
+          alignItems="stretch"
+      >
+        <Grid item xs={5}>
           <Paper className={classes.paper}>
           <form className={classes.root} noValidate autoComplete="off">
       <div>
+
+      <center><h4><b>คำอธิบายสินค้า</b></h4></center>
+
       <TextField
           id="outlined-multiline-flexible"
           label="ชื่อสินค้า (จำเป็น)"
@@ -99,7 +255,7 @@ export default function Addproduct() {
     <TextField
           id="standard-textarea"
           label="เพิ่มแฮชแท็ก (#Apple)"
-          placeholder="Placeholder"
+          placeholder=" "
           multiline
         />
          </div>
@@ -112,10 +268,10 @@ export default function Addproduct() {
       <TextField
           id="outlined-select-currency"
           select
-          label="Select"
+          label="หมวดหมู่ (จำเป็น)"
           value={currency}
           onChange={handleChangetag}
-          helperText="Please select your currency"
+          helperText="กรุณาเลือกหมวดหมู่เพื่อการค้นหาที่สะดวกมากยิ่งขึ้น"
           variant="outlined"
         >
           {currencies.map((option) => (
@@ -127,12 +283,73 @@ export default function Addproduct() {
       </div>
     </form>
 
+    <br></br>
+
+    <FormControl variant="outlined" className={classes.formControl}>
+    ที่อยู่ของสิ่งของ (จำเป็น)
+        <InputLabel id="demo-simple-select-outlined-label"></InputLabel>
+        <br></br>
+        <Autocomplete
+          fullWidth name="province"
+          id="demo-simple-select-outlined"
+          options={provincess}
+          onChange={option => {console.log(option.target.innerText)}}
+          getOptionLabel={(option) => option.title}
+          renderInput={(params) => <TextField {...params} label="จังหวัด" variant="outlined" />}
+          label="จังหวัด"
+        >
+        </Autocomplete>
+      </FormControl>
           </Paper>
         </Grid>
+        <Grid item xs={5}>
+          <Paper className={classes.paper}>
+          <center><h4><b>อัพโหลดรูปภาพ</b></h4></center>
+          <Card className={classes.root} variant="outlined">
+            <CardContent>
+              Upload Your Product Image
+            </CardContent>
         
-      </Grid>
-    </div>
-  );
+          <CardActions>
+          <input
+            accept="image/*"
+            className={classes.input}
+            id="contained-button-file"
+            multiple
+            type="file"
+          />
+        
+          <label htmlFor="contained-button-file">
+                <Button variant="contained" color="primary" component="span">
+                อัพโหลด
+              </Button>
+          </label>
+          </CardActions>
+        </Card>
+            <br></br>
+        <Button variant="contained" color="secondary" href="#contained-buttons">
+                ส่งข้อมูลสินค้า
+              </Button>
+              <p>________________</p>
+              <p>Attention ! : กรุณาเช็คความถูกต้องก่อนกดส่งข้อมูลสินค้า</p>
+          </Paper>
+        </Grid>
 
-  
+        <Grid item xs={10}>
+          <br></br>
+          <center><h4><b>WARNING !!!</b></h4></center>
+          <Paper className={classes.paper}>
+          <p><b>________________ ข้อควรระวังเกี่ยวกับการแลกเปลี่ยน ________________</b></p>
+          <p>เพื่อปกป้องสิทธิของคุณเราขขอแนะนำให้คุณมีการเจรจาซื้อขายที่นี่และตรวจสอบให้แน่ใจว่าให้ข้อมูลเกี่ยวกับการแลกเปลี่ยนที่เพียงพอ 
+หากคุณใช้โปรแกรมสนทนาอื่นนอกเหนือจากที่นี่ เราจะไม่สามารถบันทึกกระบวนการแลกเปลี่ยนทั้งหมดของคุณได้อย่างสมบรูณ์
+จึงขอความร่วมมือมา ณ ที่นี้ </p>
+          ___________________________________________________________________
+          </Paper>
+        </Grid>
+
+      </Grid>
+      <br></br>
+    </div>
+
+  );
 }
