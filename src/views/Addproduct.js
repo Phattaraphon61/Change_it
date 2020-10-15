@@ -206,27 +206,7 @@ export default function Addproduct() {
     setCurrency(event.target.value);
   };
 
-  // const handleFileInputChange = e => {
-  //   const file = e.target.files[0];
-  //   previewFile(file);
-  //   setSelectedFile(file);
-  //   setFileInputState(e.target.value);
-  // };
-  // const previewFile = file => {
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onloadend = () => {
-  //     setPreviewSource(reader.result);
-  //   };
-  // };
 
-  // const uploadPicture = () => {
-  //   let formData = new FormData();
-  //   formData.append("selectedFile", selectedFile);
-
-  //   axios.post("http://localhost:8080/image", formData).then(result => { });
-
-  // };
   return (
     <div className={classes.root}>
 
