@@ -51,7 +51,12 @@ useEffect(() => {
 
                 <div className="form-group">
                     <label>รห้สผ่าน</label>
-                    <input type="password" className="form-control" placeholder="กรอกรหัสผ่าน" value={password} onChange={(e)=>{setpassword(e.target.value)}}/>
+                    <input type="password" className="form-control" placeholder="กรอกรหัสผ่าน" value={password} onChange={(e)=>{setpassword(e.target.value)}}
+                    onKeyPress={(ev) => {
+                      if (ev.key == 'Enter') {
+                        senddata();
+                      }
+                    }} />
                 </div>
 {/*
                 <div className="form-group">

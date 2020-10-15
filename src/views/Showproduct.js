@@ -3,7 +3,7 @@ import React from 'react'
 // import { Carousel } from 'react-responsive-carousel';
 import { Container, Row, Col, Card, CardBody, CardImg } from "shards-react";
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { createMuiTheme, useTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -12,55 +12,64 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { green, purple } from '@material-ui/core/colors';
+import TouchAppIcon from '@material-ui/icons/TouchApp';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const tutorialSteps = [
     {
-      label: 'San Francisco – Oakland Bay Bridge, United States',
-      imgPath:
-        'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+        label: 'San Francisco – Oakland Bay Bridge, United States',
+        imgPath:
+            'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
     },
     {
-      label: 'Bird',
-      imgPath:
-        'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+        label: 'Bird',
+        imgPath:
+            'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
     },
     {
-      label: 'Bali, Indonesia',
-      imgPath:
-        'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
+        label: 'Bali, Indonesia',
+        imgPath:
+            'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
     },
     {
-      label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
-      imgPath:
-        'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
+        label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
+        imgPath:
+            'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
     },
     {
-      label: 'Goč, Serbia',
-      imgPath:
-        'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+        label: 'Goč, Serbia',
+        imgPath:
+            'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
     },
-  ];
-  
-  const useStyles = makeStyles((theme) => ({
+];
+
+const useStyles = makeStyles((theme) => ({
     root: {
-      maxWidth: 800,
-      flexGrow: 1,
+        maxWidth: 800,
+        flexGrow: 1,
     },
     header: {
-      display: 'flex',
-      alignItems: 'center',
-      height: 50,
-      paddingLeft: theme.spacing(4),
-      backgroundColor: theme.palette.background.default,
+        display: 'flex',
+        alignItems: 'center',
+        height: 50,
+        paddingLeft: theme.spacing(4),
+        backgroundColor: theme.palette.background.default,
     },
     img: {
-      height: "auto",
-      display: 'block',
-      maxWidth: 800,
-      overflow: 'hidden',
-      width: '100%',
+        height: "auto",
+        display: 'block',
+        maxWidth: 800,
+        overflow: 'hidden',
+        width: '100%',
     },
-  }));
+}));
+
+const theme = createMuiTheme({
+    palette: {
+      primary: green,
+    },
+  });
 export default function Showproduct() {
 
     const classes = useStyles();
@@ -68,53 +77,59 @@ export default function Showproduct() {
     const [activeStep, setActiveStep] = React.useState(0);
     const tutorialSteps = [
         {
-          label: 'San Francisco – Oakland Bay Bridge, United States',
-          imgPath:
-            'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+            label: 'San Francisco – Oakland Bay Bridge, United States',
+            imgPath:
+                'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
         },
         {
-          label: 'Bird',
-          imgPath:
-            'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+            label: 'Bird',
+            imgPath:
+                'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
         },
         {
-          label: 'Bali, Indonesia',
-          imgPath:
-            'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
+            label: 'Bali, Indonesia',
+            imgPath:
+                'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
         },
         {
-          label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
-          imgPath:
-            'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
+            label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
+            imgPath:
+                'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
         },
         {
-          label: 'Goč, Serbia',
-          imgPath:
-            'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+            label: 'Goč, Serbia',
+            imgPath:
+                'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
         },
-      ];
+    ];
     const maxSteps = tutorialSteps.length;
-  
+
     const handleNext = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
-  
+
     const handleBack = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-  
+
     const handleStepChange = (step) => {
-      setActiveStep(step);
+        setActiveStep(step);
     };
     return (
 
 
-        <div class="container" >
-            <div class="row ">
+        <div class="row align-items-center">
 
-                <div class="card">
+            <div class="container">
+                <div class="row align-items-center">
 
-                    <div class="col-lg-12 card">
+                    <div class="col-1">
+                        <div>
+                            <br />
+                        </div>
+                    </div>
+
+                    <div class="col card">
                         <div style={{ marginTop: "20px" }}>
                             <img class="rounded-circle" src="https://www.w3schools.com/html/img_girl.jpg" alt="Generic placeholder image" style={{ width: "10%" }} />
                         </div>
@@ -123,23 +138,7 @@ export default function Showproduct() {
                             <p>ที่อยู่ แล้วแต่จะคิด ทำไมต้องถาม</p>
                             <p>Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
                         </div>
-
-                        {/* <Carousel style={{width:"50%", height:"2px"}}>
-                                <div style={{height:"500px"}}>
-                                    <img src="http://localhost:8080/image/test.jpg" />
-                                    <p className="legend">Legend 1</p>
-                                </div>
-                                <div style={{height:"500px"}}>
-                                    <img src="https://cf.shopee.co.th/file/e0327cba4a5e41a8e405b1fd721a4939" />
-                                    <p className="legend">Legend 2</p>
-                                </div>
-                                <div style={{height:"500px"}}>
-                                    <img src="https://xn--b3c2cb3bb3c3dbe6i.net/wp-content/uploads/2016/08/800x400-009.png" />
-                                    <p className="legend">Legend 3</p>
-                                </div>
-                            </Carousel> */}
-                            
-                        <div className={classes.root} style={{ marginLeft: "150px" }}>
+                        <div className={classes.root} style={{ marginLeft: "50px" }}>
                             <Paper square elevation={0} className={classes.header}>
                                 {/* <Typography>{tutorialSteps[activeStep].label}</Typography> */}
                             </Paper>
@@ -176,17 +175,41 @@ export default function Showproduct() {
                                 }
                             />
                         </div>
-
                         <div class="card">
-                            <div style={{ marginLeft: "20px", marginTop: "20px" }} >
-                                <h1>รายละเอียด</h1>
-                                <p>1.สิ่งที่ต้องการนำเสนอ ผู้พัฒนาจะต้องเตรียมข้อมูลต่างๆ project change-it</p>
-                            </div>
-                            <div style={{ marginLeft: "20px", marginBottom: "50px" }}>
-                                <button type="button" class="btn btn-outline-primary">ของใช้ในบ้าน</button>
-                                <button type="button" class="btn btn-outline-primary" style={{ marginLeft: "20px" }}>เครื่องมือ</button>
-                                <button type="button" class="btn btn-outline-primary" style={{ marginLeft: "20px" }}>อุปกรณ์เสริม</button>
-                            </div>
+                            <Row>
+                                <div class="col-9">
+                                    <div style={{ marginLeft: "20px", marginTop: "20px" }} >
+                                        <h1>รายละเอียด</h1>
+                                        <p>1.สิ่งที่ต้องการนำเสนอ ผู้พัฒนาจะต้องเตรียมข้อมูลต่างๆ project change-it</p>
+                                    </div>
+                                    <div style={{ marginLeft: "20px", marginBottom: "50px" }}>
+                                        <button type="button" class="btn btn-outline-primary">ของใช้ในบ้าน</button>
+                                        <button type="button" class="btn btn-outline-primary" style={{ marginLeft: "20px" }}>เครื่องมือ</button>
+                                        <button type="button" class="btn btn-outline-primary" style={{ marginLeft: "20px" }}>อุปกรณ์เสริม</button>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-3" style={{ marginTop: "90px" }}>
+
+                                    {/* <Card style={{ marginTop: "30px",marginBottom:"30px" , marginRight: "30px", width: "180px", height: "180px" }}>
+                                        {/* <CardImg top src="https://place-hold.it/150x100" /> */}
+                                    {/* <CardBody>
+                                            <h5 style={{ textAlign:"center"}}>ยื่นข้อเสนอ</h5>
+                                        </CardBody>
+                                    </Card>  */}
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.button}
+                                        startIcon={<TouchAppIcon />}
+                                        style={{padding:"20px",width:"150px"}}
+                                    >ยื่นข้อเสนอ</Button>
+                                    {/* <button type="button" >ยื่นข้อเสนอ</button> */}
+                                </div>
+                            </Row>
+
+
 
                         </div>
                         <div style={{ marginTop: "20px" }}>
@@ -221,11 +244,26 @@ export default function Showproduct() {
                         </div>
 
                     </div>
+
+
+                    <div class="col-1">
+                        <div>
+                            <br />
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
-        </div>
 
 
+
+
+
+
+
+
+        </div >
 
 
 

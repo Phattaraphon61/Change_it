@@ -23,7 +23,7 @@ class BlogPosts extends React.Component {
       // First list of posts.
       PostsListOne: [
         {
-          backgroundImage: "http://localhost:8080/image/test.jpg",
+          backgroundImage: "",
           category: "หนังสือ",
           categoryTheme: "primary",
           author: "DekShaoKhao ",

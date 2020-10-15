@@ -16,6 +16,7 @@ import {
   Typography
 } from "@material-ui/core";
 import axios from "axios"
+import jwt_decode from "jwt-decode";
 
 // import $ from "jquery"
 
@@ -200,11 +201,26 @@ export default function Addproduct() {
   const [fileInputState, setFileInputState] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [previewSource, setPreviewSource] = useState([]);
+  const [city, setcity] = useState()
   const classes = useStyles();
-  const [nameproduct, setnameproduct] = useState("")
+  const [nameproduct, setnameproduct] = useState("");
+  const [nameimage, setnameimage] = useState([])
   const [currency, setCurrency] = useState('plzselect');
   const [age, setAge] = useState('');
+  const [iduser, setiduser] = useState()
+  const [dis, setdis] = useState()
+  let nameimg = [];
   const bull = <span className={classes.bullet}>•</span>;
+  useEffect(() => {
+    if (localStorage.usertoken !== undefined) {
+      const token = localStorage.usertoken;
+      const decoded = jwt_decode(token);
+      setiduser(decoded.id)
+    } else {
+      // window.history.pushState(null, null, '/signin')
+      window.location = "/signin"
+    }
+  }, [])
 
   const handleChange = (event) => {
      setnameproduct(event.target.value);
@@ -217,25 +233,72 @@ export default function Addproduct() {
     console.log(e.target.files)
     const file = e.target.files[0];
     previewFile(file);
-    setSelectedFile(file);
+    setSelectedFile(prevent => Array.from(new Set([...prevent, file])));
     setFileInputState(e.target.value);
   };
   const previewFile = file => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setPreviewSource(prevent => Array.from(new Set([...prevent, reader.result])));
+      setPreviewSource(prevent =>([...prevent, reader.result]));
     };
   };
 
   const uploadPicture = () => {
-    let formData = new FormData();
-    formData.append("selectedFile", selectedFile);
-    console.log("gggggg",selectedFile)
+    
+    selectedFile.map((datas) =>{
+      let formData = new FormData();
+          formData.append("selectedFile", datas);
+          // console.log("gggggg",datas)
+            axios.post("http://localhost:8080/image", formData).then(result => {
+              result.data.map((value) =>{
+                // setnameimage(prevent => ([...prevent,value]))
+                nameimg.push(value)
+              })
+    
+              
+            });
+         
 
-    // axios.post("http://localhost:8080/image", formData).then(result => {});
+    })
+    setTimeout(function() {
+      adddata()
+    }, 1000);
 
+   
+    
+    
 };
+
+const adddata = () =>{
+  let data = {
+    nameproduct: nameproduct,
+    theme: "primary",
+    dis: dis,
+    currency:currency,
+    provincess:city,
+    id: iduser
+
+  }
+  axios.post("http://localhost:8080/addproduct", { data }).then(res => {
+         addimage(res.data)
+  })
+
+}
+
+const addimage = (id) =>{
+  
+    nameimg.map((value) =>{
+      let data = {
+        id:id,
+        name: value
+      }
+      axios.post("http://localhost:8080/addimageproduct", { data }).then(res => {
+
+      })
+    })
+
+}
 
 const addproducts = () =>{
   uploadPicture()
@@ -281,7 +344,9 @@ const addproducts = () =>{
                   id="outlined-multiline-static"
                   label="รายละเอียดสินค้า (จำเป็น)"
                   multiline
+                  value={dis}
                   rows={8}
+                  onChange={e =>{setdis(e.target.value)}}
                   variant="outlined"
                 />
               </div>
@@ -331,7 +396,7 @@ const addproducts = () =>{
                 fullWidth name="province"
                 id="demo-simple-select-outlined"
                 options={provincess}
-                onChange={option => { console.log(option.target.innerText) }}
+                onChange={option => { setcity(option.target.innerText) }}
                 getOptionLabel={(option) => option.title}
                 renderInput={(params) => <TextField {...params} label="จังหวัด" variant="outlined" />}
                 label="จังหวัด"
