@@ -12,7 +12,11 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import '../shards-dashboard/styles/Addproduct.css'
+import {
+  Typography
+} from "@material-ui/core";
+import axios from "axios"
+
 // import $ from "jquery"
 
 const currencies = [
@@ -75,7 +79,7 @@ const currencies = [
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    minWidth: 275,
+    minWidth:500,
     '& > *': {
       margin: theme.spacing(1),
     },
@@ -193,20 +197,50 @@ export default function Addproduct() {
     { title: 'นราธิวาส' },
     { title: 'บึงกาฬ' }
   ]);
+  const [fileInputState, setFileInputState] = useState("");
+  const [selectedFile, setSelectedFile] = useState("");
+  const [previewSource, setPreviewSource] = useState([]);
   const classes = useStyles();
-  const [value, setValue] = React.useState('');
-  const [currency, setCurrency] = React.useState('plzselect');
-  const [age, setAge] = React.useState('');
+  const [nameproduct, setnameproduct] = useState("")
+  const [currency, setCurrency] = useState('plzselect');
+  const [age, setAge] = useState('');
   const bull = <span className={classes.bullet}>•</span>;
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+     setnameproduct(event.target.value);
   };
   const handleChangetag = (event) => {
     setCurrency(event.target.value);
   };
 
+  const handleFileInputChange = e => {
+    console.log(e.target.files)
+    const file = e.target.files[0];
+    previewFile(file);
+    setSelectedFile(file);
+    setFileInputState(e.target.value);
+  };
+  const previewFile = file => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(prevent => Array.from(new Set([...prevent, reader.result])));
+    };
+  };
 
+  const uploadPicture = () => {
+    let formData = new FormData();
+    formData.append("selectedFile", selectedFile);
+    console.log("gggggg",selectedFile)
+
+    // axios.post("http://localhost:8080/image", formData).then(result => {});
+
+};
+
+const addproducts = () =>{
+  uploadPicture()
+
+}
   return (
     <div className={classes.root}>
 
@@ -223,16 +257,17 @@ export default function Addproduct() {
         <Grid item xs={5}>
           <Paper className={classes.paper}>
             <form className={classes.root} noValidate autoComplete="off">
-              <div>
+              <div >
 
-                <center><h4><b>คำอธิบายสินค้า</b></h4></center>
+                <center><h4><b>รายละเอียดสิ่งของ</b></h4></center>
 
                 <TextField
+                style={{width:"450px"}}
                   id="outlined-multiline-flexible"
                   label="ชื่อสินค้า (จำเป็น)"
                   multiline
-                  rowsMax={4}
-                  value={value}
+                  rowsMax={5}
+                  value={nameproduct}
                   onChange={handleChange}
                   variant="outlined"
                 />
@@ -242,10 +277,11 @@ export default function Addproduct() {
             <form className={classes.root} noValidate autoComplete="off">
               <div>
                 <TextField
+                style={{width:"450px"}}
                   id="outlined-multiline-static"
                   label="รายละเอียดสินค้า (จำเป็น)"
                   multiline
-                  rows={4}
+                  rows={8}
                   variant="outlined"
                 />
               </div>
@@ -291,6 +327,7 @@ export default function Addproduct() {
         <InputLabel id="demo-simple-select-outlined-label"></InputLabel>
               <br></br>
               <Autocomplete
+              style={{width:"250px"}}
                 fullWidth name="province"
                 id="demo-simple-select-outlined"
                 options={provincess}
@@ -307,28 +344,61 @@ export default function Addproduct() {
           <Paper className={classes.paper}>
             <center><h4><b>อัพโหลดรูปภาพ</b></h4></center>
             <Card className={classes.root} variant="outlined">
-              <CardContent>
-                Upload Your Product Image
-            </CardContent>
+              
+            <Typography align="center">
+              {previewSource.map((data) =>(
+                data !== "" ? (
+                  <img
+                    src={data}
+                    width="200"
+                    height='250'
+                  ></img>
+                ) : (
+                    <div></div>
+                  )
+              ))}
+                
+              </Typography>
 
               <CardActions>
-                <input
+
+              </CardActions>
+                {/* <input
                   accept="image/*"
                   className={classes.input}
                   id="contained-button-file"
                   multiple
                   type="file"
-                />
+                /> */}
 
                 <label htmlFor="contained-button-file">
-                  <Button variant="contained" color="primary" component="span">
-                    อัพโหลด
+                <Button
+                variant="outlined"
+                color="primary"
+                component="label"
+                className={
+                  classes.chooseImage
+                }
+                onChange={e => {
+                  handleFileInputChange(
+                    e
+                  );
+                }}
+                value={fileInputState}
+              >
+                เลือกรูปภาพ
+             <input
+                  type="file"
+                  style={{
+                    display: "none"
+                  }}
+                />
               </Button>
                 </label>
-              </CardActions>
+              
             </Card>
             <br></br>
-            <Button variant="contained" color="secondary" href="#contained-buttons">
+            <Button variant="contained" color="secondary" href="#contained-buttons" onClick={addproducts}>
               ส่งข้อมูลสินค้า
               </Button>
             <p>________________</p>
