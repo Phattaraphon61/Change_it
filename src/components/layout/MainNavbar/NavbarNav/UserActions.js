@@ -13,11 +13,16 @@ import jwt_decode from "jwt-decode";
 
 export default function UserActions() {
   const [decoded, setdecoded] = useState()
+  const [urlimage, seturlimage] = useState()
 
   useEffect(() => {
     if(localStorage.usertoken !== undefined){
       const token = localStorage.usertoken;
-      setdecoded(jwt_decode(token))
+      const decoded = jwt_decode(token);
+      setdecoded(decoded)
+      seturlimage(decoded.image)
+      console.log("ggg",decoded.image)
+      
     }else{
       // window.history.pushState(null, null, '/signin')
       window.location = "/signin"
@@ -32,7 +37,7 @@ export default function UserActions() {
         <img
           style={{ width: "60px", height: "40px" }}
           className="user-avatar rounded-circle"
-          src={"https://s.isanook.com/wo/0/rp/r/w728/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL3dvLzAvdWQvMjcvMTM1NTY5L2wxLmpwZw==.jpg"}
+          src={urlimage}
           alt="User Avatar"
         />{" "}
         {decoded !== undefined ?<span className="d-none d-md-inline-block ">{`${decoded.name}  ${decoded.lname}`}</span>:<span className="d-none d-md-inline-block ">{""}</span>}

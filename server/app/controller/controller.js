@@ -21,7 +21,8 @@ exports.signup = (req, res) => {
 		role: req.body.role,
 		lname: req.body.lname,
 		address: req.body.address,
-		city: req.body.city
+		city: req.body.city,
+		image: req.body.image
 	}).then(user => {
 		Role.findAll({
 		  where: {

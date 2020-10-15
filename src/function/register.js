@@ -24,7 +24,9 @@ export const registers = user=>{
         "lname":`${user.lname}`,
         "address": `${user.address}`,
         "city":`${user.city}`,
-        "roles":["user"]
+        "roles":["user"],
+        "image":"http://localhost:8080/image/avatar.png",
+
     
   }).then(response => {
    return response.data

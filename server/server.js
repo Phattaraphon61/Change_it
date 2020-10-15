@@ -87,7 +87,7 @@ app.post("/test", (req, res) => {
 
 	var bcrypt = require('bcryptjs');
 	// let pass = bcrypt.hashSync(req.body.data.password, 8)
-	dbs.query(`UPDATE users SET name = '${req.body.data.name}',email = '${req.body.data.email}',lname = '${req.body.data.lname}', address = '${req.body.data.address}',city = '${req.body.data.city}'  WHERE id = '${req.body.data.id}'`)
+	dbs.query(`UPDATE users SET name = '${req.body.data.name}',email = '${req.body.data.email}',lname = '${req.body.data.lname}', address = '${req.body.data.address}',city = '${req.body.data.city}',image = '${req.body.data.image}'  WHERE id = '${req.body.data.id}'`)
 		.on('end', function () {
 			dbs.query(`UPDATE roomchat SET nameuser1 = '${req.body.data.name}'  WHERE iduser1 = ${req.body.data.id} `)
 			dbs.query(`UPDATE roomchat SET nameuser2 = '${req.body.data.name}'  WHERE iduser2 = ${req.body.data.id} `)

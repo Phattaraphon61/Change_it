@@ -23,6 +23,9 @@ module.exports = (sequelize, Sequelize) => {
 		},
 		city: {
 			type: Sequelize.STRING
+		},
+		image: {
+			type: Sequelize.STRING
 		}
 	});
 
