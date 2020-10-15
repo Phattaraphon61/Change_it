@@ -20,6 +20,7 @@ const db = require('./app/config/db.config.js');
 const Role = db.role;
 let imagename = [];
 let product = [];
+let editproduct = [];
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
 
@@ -47,6 +48,45 @@ app.use('/image/:name', function (req, res) {
 	res.sendFile(path.resolve(__dirname, `./uploads/${req.params.name}`));
 })
 
+
+app.post("/dataedit",(req,res) =>{
+	console.log("id ->fff",req.body.data.id)
+	dbs.query(`DELETE FROM product WHERE id = ${req.body.data.id} `)
+	.on('end', function () {
+		res.send("เรียบร้อย")
+
+	})
+})
+
+
+
+
+
+app.post("/geteditproduct",(req,res) =>{
+	console.log("id ->",req.body.data.id)
+	dbs.query(`SELECT * FROM product WHERE ownerid = ${req.body.data.id} `)
+	.on('result',function(value){
+
+		editproduct.push({
+			backgroundImage: value.titleimage,
+			category: value.type,
+			categoryTheme: value.theme,
+			author: value.ownername,
+			authorAvatar: value.ownerimage,
+			title: value.title,
+			body: value.dis,
+			date: value.city,
+			id: value.id
+		  })
+
+	}).on('end', function () {
+		res.json(editproduct)
+		editproduct = []
+
+	})
+})
+
+
 app.get("/getproduct",(req,res) =>{
 	dbs.query(`SELECT * FROM product`)
 	.on('result',function(value){
@@ -64,7 +104,6 @@ app.get("/getproduct",(req,res) =>{
 		  })
 
 	}).on('end', function () {
-		console.log("product",product)
 		res.json(product)
 		product = []
 

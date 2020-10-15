@@ -20,6 +20,8 @@ import Dialog from "./views/dialog"
 import Addproduct from "./views/Addproduct"
 import Register from './views/Register'
 import Showproduct from './views/Showproduct'
+import Editproduct from './views/editproduct'
+
 
 export default [
 
@@ -28,6 +30,16 @@ export default [
     <Route path="/editprofile">
         <DefaultLayout>
           <UserProfileLite />
+        </DefaultLayout>
+      </Route>
+      <Route path="/ex">
+        <DefaultLayout>
+          <ComponentsOverview />
+        </DefaultLayout>
+      </Route>
+      <Route path="/editproduct">
+        <DefaultLayout>
+          <Editproduct />
         </DefaultLayout>
       </Route>
       <Route path="/signin">
