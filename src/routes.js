@@ -19,6 +19,7 @@ import Chat from "./views/Chat"
 import Dialog from "./views/dialog"
 import Addproduct from "./views/Addproduct"
 import Register from './views/Register'
+import Showproduct from './views/Showproduct'
 
 export default [
 
@@ -33,6 +34,17 @@ export default [
         <Test>
           <Signin />
         </Test>
+      </Route>
+      <Route path="/things/:id">
+        <DefaultLayout>
+          <Showproduct />
+        </DefaultLayout>
+      </Route>
+      <Route path="/chat/:id">
+        <DefaultLayout>
+          <Chat />
+        </DefaultLayout>
+        {/* <Redirect to="chat/:id"/> */}
       </Route>
       <Route path="/register">
         <Test>
@@ -54,12 +66,6 @@ export default [
       <DefaultLayout>
         <Chat />
         </DefaultLayout>
-      </Route>
-      <Route exact path="/chat/:id">
-        <DefaultLayout>
-          <Chat />
-        </DefaultLayout>
-        {/* <Redirect to="chat/:id"/> */}
       </Route>
       <Route path="/">
         <Redirect to="/things" />

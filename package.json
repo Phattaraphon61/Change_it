@@ -6,6 +6,7 @@
     "dependencies": {
         "@material-ui/core": "^4.11.0",
         "@material-ui/lab": "^4.0.0-alpha.56",
+        "@material-ui/icons":"^4.9.1",
         "axios": "^0.20.0",
         "camelize": "^1.0.0",
         "chart.js": "^2.7.3",
@@ -16,6 +17,8 @@
         "lodash.find": "^4.6.0",
         "mdbreact": "^4.27.0",
         "react": "^16.7.0",
+        "react-swipeable-views": "^0.13.9",
+        "react-swipeable-views-utils": "^0.14.0-alpha.0",
         "react-bootstrap-dialog": "^0.13.0",
         "react-dom": "^16.7.0",
         "react-ga": "^2.5.6",

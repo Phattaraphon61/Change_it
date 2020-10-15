@@ -15,7 +15,11 @@ export default function Datachat(props) {
 
             if (id != undefined) {
                 let iduser = decoded.id
-                socket.emit("getdata", { id, iduser })
+                console.log(window.location.href.split('/')[3])
+                if(window.location.href.split('/')[3] !== "things"){
+                  socket.emit("getdata", { id, iduser })  
+                }
+                
                 socket.on('senddatachat', ({ datachat }) => {
                     setmsg(datachat)
                     console.log("data", datachat)
