@@ -23,19 +23,22 @@ io.on('connection', socket => {
             .on('result', function (value) {
                if(value.iduser1 !== id){
                    lists.push({
+                       idd:id,
                        id: value.idroom,
                        name: value.nameuser1
                    })
                }
                if(value.iduser2 !== id){
                 lists.push({
+                    idd: id,
                     id: value.idroom,
                     name: value.nameuser2
                 })
             }
             }).on('end', function () {
+                let idss = id;
                 // console.log("ddd",lists)
-                io.emit('listdata',{lists})
+                io.emit('listdata',{lists,idss})
                 lists = []
                 
             })

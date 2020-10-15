@@ -1,14 +1,16 @@
-import React, { Component,useState } from "react";
+import React, { Component,useState,useEffect } from "react";
 import {Col } from "shards-react";
 import {signin} from "../function/signin"
 import jwt_decode from "jwt-decode";
-
-// import {useNavigate} from "react-router-dom";
 
 export default function Signin() {
 const [email, setemail] = useState()
 const [password, setpassword] = useState()
 // const navigate = useNavigate();
+
+useEffect(() => {
+  localStorage.removeItem('usertoken');
+}, [])
 
 
   const senddata = ()=>{
@@ -61,7 +63,7 @@ const [password, setpassword] = useState()
 
                 <button type="submit" className="btn btn-primary btn-block" onClick={senddata}>ยืนยัน</button>
                 <p className="forgot-password text-right">
-                    ลืม <a >รหัสผ่าน?</a>
+                  <a href="/register">สมัครสมาชิก</a>
                 </p>
 
             </Col>
