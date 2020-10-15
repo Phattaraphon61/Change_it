@@ -206,27 +206,27 @@ export default function Addproduct() {
     setCurrency(event.target.value);
   };
 
-  const handleFileInputChange = e => {
-    const file = e.target.files[0];
-    previewFile(file);
-    setSelectedFile(file);
-    setFileInputState(e.target.value);
-  };
-  const previewFile = file => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreviewSource(reader.result);
-    };
-  };
+  // const handleFileInputChange = e => {
+  //   const file = e.target.files[0];
+  //   previewFile(file);
+  //   setSelectedFile(file);
+  //   setFileInputState(e.target.value);
+  // };
+  // const previewFile = file => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setPreviewSource(reader.result);
+  //   };
+  // };
 
-  const uploadPicture = () => {
-    let formData = new FormData();
-    formData.append("selectedFile", selectedFile);
+  // const uploadPicture = () => {
+  //   let formData = new FormData();
+  //   formData.append("selectedFile", selectedFile);
 
-    axios.post("http://localhost:8080/image", formData).then(result => { });
+  //   axios.post("http://localhost:8080/image", formData).then(result => { });
 
-  };
+  // };
   return (
     <div className={classes.root}>
 
@@ -363,7 +363,7 @@ export default function Addproduct() {
             <p><b>________________ ข้อควรระวังเกี่ยวกับการแลกเปลี่ยน ________________</b></p>
             <p>เพื่อปกป้องสิทธิของคุณเราขขอแนะนำให้คุณมีการเจรจาซื้อขายที่นี่และตรวจสอบให้แน่ใจว่าให้ข้อมูลเกี่ยวกับการแลกเปลี่ยนที่เพียงพอ
             หากคุณใช้โปรแกรมสนทนาอื่นนอกเหนือจากที่นี่ เราจะไม่สามารถบันทึกกระบวนการแลกเปลี่ยนทั้งหมดของคุณได้อย่างสมบรูณ์
-จึงขอความร่วมมือมา ณ ที่นี้ </p>
+            จึงขอความร่วมมือมา ณ ที่นี้ </p>
           ___________________________________________________________________
           </Paper>
         </Grid>
