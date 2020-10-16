@@ -20,7 +20,12 @@ import Dialog from "./views/dialog"
 import Addproduct from "./views/Addproduct"
 import Register from './views/Register'
 import Showproduct from './views/Showproduct'
+<<<<<<< HEAD
 import Notification from './views/Notification'
+=======
+import Editproduct from './views/editproduct'
+
+>>>>>>> 305575189afe2109d2c4652c010205ed85bda0d3
 
 export default [
 
@@ -34,6 +39,16 @@ export default [
       <Route path="/editprofile">
         <DefaultLayout>
           <UserProfileLite />
+        </DefaultLayout>
+      </Route>
+      <Route path="/ex">
+        <DefaultLayout>
+          <ComponentsOverview />
+        </DefaultLayout>
+      </Route>
+      <Route path="/editproduct">
+        <DefaultLayout>
+          <Editproduct />
         </DefaultLayout>
       </Route>
       <Route path="/signin">

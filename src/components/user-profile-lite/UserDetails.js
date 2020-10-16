@@ -134,10 +134,9 @@ export default function UserDetails() {
     if(localStorage.usertoken !== undefined){
       const token = localStorage.usertoken;
       const decoded = jwt_decode(token);
-      console.log("ddddddddddddddd")
       setuserDetails({
         name: `${decoded.name}  ${decoded.lname}`,
-        avatar: "https://s.isanook.com/wo/0/rp/r/w728/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL3dvLzAvdWQvMjcvMTM1NTY5L2wxLmpwZw==.jpg",
+        avatar: `${decoded.image}`,
         jobTitle: "Project Manager",
         performanceReportTitle: "Workload",
         performanceReportValue: 74,

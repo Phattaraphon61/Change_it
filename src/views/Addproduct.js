@@ -22,65 +22,57 @@ import jwt_decode from "jwt-decode";
 
 const currencies = [
   {
-    value: 'เลือกหมวดหมู่',
+    value: 'plzselect',
     label: 'เลือกหมวดหมู่',
   },
   {
-    value: 'หนังสือ',
+    value: 'Book',
     label: 'หนังสือ',
-    categoryTheme: "primary",
   },
   {
-    value: 'ความงาม',
+    value: 'Bueaty',
     label: 'ความงาม',
-    categoryTheme: "info",
   },
   {
-    value: 'เกม',
+    value: 'game',
     label: 'เกม',
-    categoryTheme: "royal-blue",
   },
   {
-    value: 'มีเดีย',
+    value: 'Media',
     label: 'มีเดีย',
-    categoryTheme: "warning",
   },
   {
-    value: 'ของเล่น',
+    value: 'Toys',
     label: 'ของเล่น',
-    categoryTheme: "dark",
   },
   {
-    value: 'เครื่องใช้ไฟฟ้า',
+    value: 'Electrical',
     label: 'เครื่องใช้ไฟฟ้า',
-    categoryTheme: "secondary",
   },
   {
-    value: 'แฟชั่นชาย',
+    value: 'MenFashion',
     label: 'แฟชั่นชาย',
-    categoryTheme: "success",
   },
   {
-    value: 'อุปกรณ์อิเล็กทรอนิกส์',
+    value: 'Electronic',
     label: 'อุปกรณ์อิเล็กทรอนิกส์',
-    categoryTheme: "light",
   },
-  // {
-  //   value: 'แฟชั่นผู้หญิง',
-  //   label: 'แฟชั่นผู้หญิง',
-  // },
-  // {
-  //   value: 'บ้านและสวน',
-  //   label: 'บ้านและสวน',
-  // },
-  // {
-  //   value: 'กลางแจ้ง',
-  //   label: 'กลางแจ้ง',
-  // },
-  // {
-  //   value: 'ฟิตเนส',
-  //   label: 'ฟิตเนส',
-  // },
+  {
+    value: 'WomenFashion',
+    label: 'แฟชั่นผู้หญิง',
+  },
+  {
+    value: 'HomeAndGarden',
+    label: 'บ้านและสวน',
+  },
+  {
+    value: 'Outdoor',
+    label: 'กลางแจ้ง',
+  },
+  {
+    value: 'Fitness',
+    label: 'ฟิตเนส',
+  },
 ];
 
 
@@ -88,7 +80,7 @@ const currencies = [
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    minWidth: 500,
+    minWidth:500,
     '& > *': {
       margin: theme.spacing(1),
     },
@@ -213,9 +205,11 @@ export default function Addproduct() {
   const classes = useStyles();
   const [nameproduct, setnameproduct] = useState("");
   const [nameimage, setnameimage] = useState([])
-  const [currency, setCurrency] = useState('เลือกหมวดหมู่');
+  const [currency, setCurrency] = useState('plzselect');
   const [age, setAge] = useState('');
   const [iduser, setiduser] = useState()
+  const [username, setusername] = useState()
+  const [urlimage, seturlimage] = useState()
   const [dis, setdis] = useState()
   let nameimg = [];
   const bull = <span className={classes.bullet}>•</span>;
@@ -224,6 +218,8 @@ export default function Addproduct() {
       const token = localStorage.usertoken;
       const decoded = jwt_decode(token);
       setiduser(decoded.id)
+      setusername(decoded.name)
+      seturlimage(decoded.image)
     } else {
       // window.history.pushState(null, null, '/signin')
       window.location = "/signin"
@@ -231,7 +227,7 @@ export default function Addproduct() {
   }, [])
 
   const handleChange = (event) => {
-    setnameproduct(event.target.value);
+     setnameproduct(event.target.value);
   };
   const handleChangetag = (event) => {
     setCurrency(event.target.value);
@@ -248,57 +244,61 @@ export default function Addproduct() {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setPreviewSource(prevent => ([...prevent, reader.result]));
+      setPreviewSource(prevent =>([...prevent, reader.result]));
     };
   };
 
   const uploadPicture = () => {
-
-    selectedFile.map((datas) => {
+    
+    selectedFile.map((datas) =>{
       let formData = new FormData();
-      formData.append("selectedFile", datas);
-      // console.log("gggggg",datas)
-      axios.post("http://localhost:8080/image", formData).then(result => {
-        result.data.map((value) => {
-          // setnameimage(prevent => ([...prevent,value]))
-          nameimg.push(value)
-        })
-
-
-      });
-
+          formData.append("selectedFile", datas);
+          // console.log("gggggg",datas)
+            axios.post("http://localhost:8080/image", formData).then(result => {
+              result.data.map((value) =>{
+                // setnameimage(prevent => ([...prevent,value]))
+                nameimg.push(value)
+              })
+    
+              
+            });
+         
 
     })
-    setTimeout(function () {
+    setTimeout(function() {
+      console.log("dfdfdfdffffffffffff",nameimg[0])
       adddata()
     }, 1000);
 
+   
+    
+    
+};
 
-
-
-  };
-
-  const adddata = () => {
-    let data = {
-      nameproduct: nameproduct,
-      theme: "primary",
-      dis: dis,
-      currency: currency,
-      provincess: city,
-      id: iduser
-
-    }
-    axios.post("http://localhost:8080/addproduct", { data }).then(res => {
-      addimage(res.data)
-    })
+const adddata = () =>{
+  let data = {
+    nameproduct: nameproduct,
+    theme: "primary",
+    dis: dis,
+    currency:currency,
+    provincess:city,
+    id: iduser,
+    username: username,
+    urlimage: urlimage,
+    imageproduct: nameimg[0]
 
   }
+  axios.post("http://localhost:8080/addproduct", { data }).then(res => {
+         addimage(res.data)
+  })
 
-  const addimage = (id) => {
+}
 
-    nameimg.map((value) => {
+const addimage = (id) =>{
+    console.log("id user =>",id,nameimg)
+    nameimg.map((value) =>{
       let data = {
-        id: id,
+        id:id,
         name: value
       }
       axios.post("http://localhost:8080/addimageproduct", { data }).then(res => {
@@ -306,12 +306,14 @@ export default function Addproduct() {
       })
     })
 
-  }
+    window.location = "/addproduct"
 
-  const addproducts = () => {
-    uploadPicture()
+}
 
-  }
+const addproducts = () =>{
+  uploadPicture()
+
+}
   return (
     <div className={classes.root}>
 
@@ -333,7 +335,7 @@ export default function Addproduct() {
                 <center><h4><b>รายละเอียดสิ่งของ</b></h4></center>
 
                 <TextField
-                  style={{ width: "450px" }}
+                style={{width:"450px"}}
                   id="outlined-multiline-flexible"
                   label="ชื่อสินค้า (จำเป็น)"
                   multiline
@@ -348,19 +350,19 @@ export default function Addproduct() {
             <form className={classes.root} noValidate autoComplete="off">
               <div>
                 <TextField
-                  style={{ width: "450px" }}
+                style={{width:"450px"}}
                   id="outlined-multiline-static"
                   label="รายละเอียดสินค้า (จำเป็น)"
                   multiline
                   value={dis}
                   rows={8}
-                  onChange={e => { setdis(e.target.value) }}
+                  onChange={e =>{setdis(e.target.value)}}
                   variant="outlined"
                 />
               </div>
             </form>
             <br></br>
-            {/* <form className={classes.root} noValidate autoComplete="off">
+            <form className={classes.root} noValidate autoComplete="off">
               <div>
                 <TextField
                   id="standard-textarea"
@@ -371,7 +373,7 @@ export default function Addproduct() {
               </div>
             </form>
 
-            <br></br> */}
+            <br></br>
 
             <form className={classes.root} noValidate autoComplete="off">
               <div>
@@ -400,7 +402,7 @@ export default function Addproduct() {
         <InputLabel id="demo-simple-select-outlined-label"></InputLabel>
               <br></br>
               <Autocomplete
-                style={{ width: "250px" }}
+              style={{width:"250px"}}
                 fullWidth name="province"
                 id="demo-simple-select-outlined"
                 options={provincess}
@@ -417,26 +419,26 @@ export default function Addproduct() {
           <Paper className={classes.paper}>
             <center><h4><b>อัพโหลดรูปภาพ</b></h4></center>
             <Card className={classes.root} variant="outlined">
-
-              <Typography align="center">
-                {previewSource.map((data) => (
-                  data !== "" ? (
-                    <img
-                      src={data}
-                      width="200"
-                      height='200'
-                    ></img>
-                  ) : (
-                      <div></div>
-                    )
-                ))}
-
+              
+            <Typography align="center">
+              {previewSource.map((data) =>(
+                data !== "" ? (
+                  <img
+                    src={data}
+                    width="200"
+                    height='250'
+                  ></img>
+                ) : (
+                    <div></div>
+                  )
+              ))}
+                
               </Typography>
 
               <CardActions>
 
               </CardActions>
-              {/* <input
+                {/* <input
                   accept="image/*"
                   className={classes.input}
                   id="contained-button-file"
@@ -444,44 +446,44 @@ export default function Addproduct() {
                   type="file"
                 /> */}
 
-              <label htmlFor="contained-button-file">
+                <label htmlFor="contained-button-file">
                 <Button
-                  variant="outlined"
-                  color="primary"
-                  component="label"
-                  className={
-                    classes.chooseImage
-                  }
-                  onChange={e => {
-                    handleFileInputChange(
-                      e
-                    );
-                  }}
-                  value={fileInputState}
-                >
-                  เลือกรูปภาพ
+                variant="outlined"
+                color="primary"
+                component="label"
+                className={
+                  classes.chooseImage
+                }
+                onChange={e => {
+                  handleFileInputChange(
+                    e
+                  );
+                }}
+                value={fileInputState}
+              >
+                เลือกรูปภาพ
              <input
-                    type="file"
-                    style={{
-                      display: "none"
-                    }}
-                  />
-                </Button>
-              </label>
-
+                  type="file"
+                  style={{
+                    display: "none"
+                  }}
+                />
+              </Button>
+                </label>
+              
             </Card>
             <br></br>
             <Button variant="contained" color="secondary" href="#contained-buttons" onClick={addproducts}>
               ส่งข้อมูลสินค้า
               </Button>
             <p>________________</p>
-            <p><mark>Attention !</mark> : กรุณาเช็คความถูกต้องก่อนกดส่งข้อมูลสินค้า</p>
+            <p>Attention ! : กรุณาเช็คความถูกต้องก่อนกดส่งข้อมูลสินค้า</p>
           </Paper>
         </Grid>
 
         <Grid item xs={10}>
           <br></br>
-          <center><h4><b><ins>WARNING !!!</ins></b></h4></center>
+          <center><h4><b>WARNING !!!</b></h4></center>
           <Paper className={classes.paper}>
             <p><b>________________ ข้อควรระวังเกี่ยวกับการแลกเปลี่ยน ________________</b></p>
             <p>เพื่อปกป้องสิทธิของคุณเราขขอแนะนำให้คุณมีการเจรจาซื้อขายที่นี่และตรวจสอบให้แน่ใจว่าให้ข้อมูลเกี่ยวกับการแลกเปลี่ยนที่เพียงพอ
