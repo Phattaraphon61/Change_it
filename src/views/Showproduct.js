@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 // import { Carousel } from 'react-responsive-carousel';
 import { Container, Row, Col, Card, CardBody, CardImg } from "shards-react";
@@ -15,6 +15,9 @@ import { autoPlay } from 'react-swipeable-views-utils';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { green, purple } from '@material-ui/core/colors';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
+import axios from "axios"
+import { set } from 'react-ga';
+import { Category } from '@material-ui/icons';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const tutorialSteps = [
     {
@@ -67,41 +70,27 @@ const useStyles = makeStyles((theme) => ({
 
 const theme = createMuiTheme({
     palette: {
-      primary: green,
+        primary: green,
     },
-  });
+});
 export default function Showproduct() {
 
     const classes = useStyles();
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
-    const tutorialSteps = [
+    const [tutorialSteps, setTutorialSteps] = React.useState([
         {
             label: 'San Francisco – Oakland Bay Bridge, United States',
             imgPath:
                 'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
         },
-        {
-            label: 'Bird',
-            imgPath:
-                'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-        },
-        {
-            label: 'Bali, Indonesia',
-            imgPath:
-                'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
-        },
-        {
-            label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
-            imgPath:
-                'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
-        },
-        {
-            label: 'Goč, Serbia',
-            imgPath:
-                'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-        },
-    ];
+    ])
+    const [name, setname] = useState()
+    const [city, setcity] = useState()
+    const [nameproduct, setnameproduct] = useState()
+    const [urlimageuser, seturlimageuser] = useState()
+    const [dis, setdis] = useState()
+    const [category, setcategory] = useState()
     const maxSteps = tutorialSteps.length;
 
     const handleNext = () => {
@@ -115,6 +104,35 @@ export default function Showproduct() {
     const handleStepChange = (step) => {
         setActiveStep(step);
     };
+
+    useEffect(() => {
+
+        let data = {
+            id: window.location.href.split('/')[4]
+        }
+        axios.post("http://localhost:8080/showproduct", { data }).then(res => {
+            console.log("dfdfdfgggggggggg", res.data)
+            setname(res.data[0].author)
+            setcity(res.data[0].date)
+            setnameproduct(res.data[0].title)
+            seturlimageuser(res.data[0].authorAvatar)
+            setdis(res.data[0].body)
+            setcategory(res.data[0].category)
+
+
+axios.post("http://localhost:8080/showproductimage", { data }).then(res => {
+    console.log("imagesssss",res.data)
+    setTutorialSteps(res.data)
+
+
+})
+        })
+    }, [])
+
+    const offer = () =>{
+      window.location = "/offer/"+window.location.href.split('/')[4]
+        
+    }
     return (
 
 
@@ -131,12 +149,12 @@ export default function Showproduct() {
 
                     <div class="col card">
                         <div style={{ marginTop: "20px" }}>
-                            <img class="rounded-circle" src="https://www.w3schools.com/html/img_girl.jpg" alt="Generic placeholder image" style={{ width: "10%" }} />
+                            <img class="rounded-circle" src={urlimageuser} alt="Generic placeholder image" style={{ width: "10%", height: "80px" }} />
                         </div>
                         <div class="media-body" style={{ marginLeft: "20px" }}>
-                            <h1 class="mt-0">User name</h1>
-                            <p>ที่อยู่ แล้วแต่จะคิด ทำไมต้องถาม</p>
-                            <p>Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            <h3 class="mt-0">{name}</h3>
+                            <p>{city}</p>
+                            <h1>{nameproduct}</h1>
                         </div>
                         <div className={classes.root} style={{ marginLeft: "50px" }}>
                             <Paper square elevation={0} className={classes.header}>
@@ -151,7 +169,7 @@ export default function Showproduct() {
                                 {tutorialSteps.map((step, index) => (
                                     <div key={step.label}>
                                         {Math.abs(activeStep - index) <= 2 ? (
-                                            <img className={classes.img} src={step.imgPath} alt={step.label} />
+                                            <img className={classes.img} src={"http://localhost:8080/image/"+step.imgPath} alt={step.label} style={{height:"450px"}} />
                                         ) : null}
                                     </div>
                                 ))}
@@ -180,12 +198,10 @@ export default function Showproduct() {
                                 <div class="col-9">
                                     <div style={{ marginLeft: "20px", marginTop: "20px" }} >
                                         <h1>รายละเอียด</h1>
-                                        <p>1.สิ่งที่ต้องการนำเสนอ ผู้พัฒนาจะต้องเตรียมข้อมูลต่างๆ project change-it</p>
+                                        <p>{dis}</p>
                                     </div>
                                     <div style={{ marginLeft: "20px", marginBottom: "50px" }}>
-                                        <button type="button" class="btn btn-outline-primary">ของใช้ในบ้าน</button>
-                                        <button type="button" class="btn btn-outline-primary" style={{ marginLeft: "20px" }}>เครื่องมือ</button>
-                                        <button type="button" class="btn btn-outline-primary" style={{ marginLeft: "20px" }}>อุปกรณ์เสริม</button>
+                            <button type="button" class="btn btn-outline-primary">{category}</button>
                                     </div>
 
 
@@ -198,16 +214,20 @@ export default function Showproduct() {
                                             <h5 style={{ textAlign:"center"}}>ยื่นข้อเสนอ</h5>
                                         </CardBody>
                                     </Card>  */}
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        className={classes.button}
-                                        startIcon={<TouchAppIcon />}
-                                        style={{padding:"20px",width:"150px"}}
-                                    >ยื่นข้อเสนอ</Button>
+
+                                   
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.button}
+                                            startIcon={<TouchAppIcon />}
+                                            style={{ padding: "20px", width: "150px" }}
+                                            onClick={offer}
+                                        >ยื่นข้อเสนอ</Button>
                                     {/* <button type="button" >ยื่นข้อเสนอ</button> */}
                                 </div>
                             </Row>
+
 
 
 

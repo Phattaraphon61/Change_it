@@ -21,6 +21,7 @@ import Addproduct from "./views/Addproduct"
 import Register from './views/Register'
 import Showproduct from './views/Showproduct'
 import Editproduct from './views/editproduct'
+import Offer from './views/Offer'
 
 
 export default [
@@ -46,6 +47,11 @@ export default [
         <Test>
           <Signin />
         </Test>
+      </Route>
+      <Route path="/offer/:id">
+        <DefaultLayout>
+          <Offer />
+        </DefaultLayout>
       </Route>
       <Route path="/things/:id">
         <DefaultLayout>

@@ -49,65 +49,135 @@ app.use('/image/:name', function (req, res) {
 })
 
 
-app.post("/dataedit",(req,res) =>{
-	console.log("id ->fff",req.body.data.id)
+app.post("/dataedit", (req, res) => {
+	console.log("id ->fff", req.body.data.id)
 	dbs.query(`DELETE FROM product WHERE id = ${req.body.data.id} `)
-	.on('end', function () {
-		res.send("เรียบร้อย")
+		.on('end', function () {
+			res.send("เรียบร้อย")
 
+		})
+})
+
+
+app.post("/chaeckownerid", (req,res)=>{
+	dbs.query(`SELECT * FROM product WHERE id = ${req.body.data.idproduct} LIMIT 1`)
+		.on('result', function (value) {
+			res.json(value.ownerid)
+		}).on('end', function () {
+
+		})
+})
+
+
+app.post("/offer", (req,res) =>{
+	var sql = "INSERT INTO offer (idproduct,idoffer,image,dis,ownerid) VALUES ?"
+	var values = [`${req.body.datas.idproduct}`, `${req.body.datas.idoffer}`,`${req.body.datas.image}`,`${req.body.datas.dis}`,`${req.body.datas.ownerid}`];
+	dbs.query(sql, [[values]], function (err, result) {
+		if (err) throw err;
+		res.json("เรียบร้อย")
 	})
+
+})
+
+
+app.post("/showproductimage", (req, res) => {
+	dbs.query(`SELECT * FROM imageproduct WHERE idproduct = ${req.body.data.id} `)
+		.on('result', function (value) {
+			editproduct.push({
+
+				label: 'San Francisco – Oakland Bay Bridge, United States',
+				imgPath: value.name,
+			})
+
+		}).on('end', function () {
+			res.json(editproduct)
+			editproduct = []
+
+		})
+
+
 })
 
 
 
 
 
-app.post("/geteditproduct",(req,res) =>{
-	console.log("id ->",req.body.data.id)
+
+
+app.post("/showproduct", (req, res) => {
+	dbs.query(`SELECT * FROM product WHERE id = ${req.body.data.id} `)
+		.on('result', function (value) {
+			editproduct.push({
+				backgroundImage: value.titleimage,
+				category: value.type,
+				categoryTheme: value.theme,
+				author: value.ownername,
+				authorAvatar: value.ownerimage,
+				title: value.title,
+				body: value.dis,
+				date: value.city,
+				id: value.id
+			})
+
+		}).on('end', function () {
+			res.json(editproduct)
+			editproduct = []
+
+		})
+
+
+})
+
+
+
+
+
+app.post("/geteditproduct", (req, res) => {
+	console.log("id ->", req.body.data.id)
 	dbs.query(`SELECT * FROM product WHERE ownerid = ${req.body.data.id} `)
-	.on('result',function(value){
+		.on('result', function (value) {
 
-		editproduct.push({
-			backgroundImage: value.titleimage,
-			category: value.type,
-			categoryTheme: value.theme,
-			author: value.ownername,
-			authorAvatar: value.ownerimage,
-			title: value.title,
-			body: value.dis,
-			date: value.city,
-			id: value.id
-		  })
+			editproduct.push({
+				backgroundImage: value.titleimage,
+				category: value.type,
+				categoryTheme: value.theme,
+				author: value.ownername,
+				authorAvatar: value.ownerimage,
+				title: value.title,
+				body: value.dis,
+				date: value.city,
+				id: value.id
+			})
 
-	}).on('end', function () {
-		res.json(editproduct)
-		editproduct = []
+		}).on('end', function () {
+			res.json(editproduct)
+			editproduct = []
 
-	})
+		})
 })
 
 
-app.get("/getproduct",(req,res) =>{
+app.get("/getproduct", (req, res) => {
 	dbs.query(`SELECT * FROM product`)
-	.on('result',function(value){
+		.on('result', function (value) {
 
-		product.push({
-			backgroundImage: value.titleimage,
-			category: value.type,
-			categoryTheme: value.theme,
-			author: value.ownername,
-			authorAvatar: value.ownerimage,
-			title: value.title,
-			body: value.dis,
-			date: value.city,
-			id: value.id
-		  })
+			product.push({
+				backgroundImage: value.titleimage,
+				category: value.type,
+				categoryTheme: value.theme,
+				author: value.ownername,
+				authorAvatar: value.ownerimage,
+				title: value.title,
+				body: value.dis,
+				date: value.city,
+				id: value.id
+			})
 
-	}).on('end', function () {
-		res.json(product)
-		product = []
+		}).on('end', function () {
+			res.json(product)
+			product = []
 
-	})
+		})
 })
 
 
@@ -129,7 +199,7 @@ app.post("/addproduct", (req, res) => {
 
 	var sql = "INSERT INTO product (type,theme,title,dis,city,ownerid,ownername,ownerimage,titleimage) VALUES ?"
 
-	var values = [`${req.body.data.currency}`, `${req.body.data.theme}`, `${req.body.data.nameproduct}`, `${req.body.data.dis}`, `${req.body.data.provincess}`, `${req.body.data.id}`,`${req.body.data.username}`,`${req.body.data.urlimage}`,`${req.body.data.imageproduct}`];
+	var values = [`${req.body.data.currency}`, `${req.body.data.theme}`, `${req.body.data.nameproduct}`, `${req.body.data.dis}`, `${req.body.data.provincess}`, `${req.body.data.id}`, `${req.body.data.username}`, `${req.body.data.urlimage}`, `${req.body.data.imageproduct}`];
 	dbs.query(sql, [[values]], function (err, result) {
 		if (err) throw err;
 		dbs.query(`SELECT * FROM product WHERE ownerid  = '${req.body.data.id}' ORDER BY id DESC LIMIT 1`)
