@@ -22,16 +22,21 @@ export default function() {
       htmlBefore: '<i class="material-icons">edit</i>',
       to: "/editproduct",
     },
+    {
+      title: "ข้อเสนอที่ถูกยืน",
+      htmlBefore: '<i class="material-icons">view_module</i>',
+      to: "/detailoffer",
+    },
     // {
     //   title: "Add New Post",
     //   htmlBefore: '<i class="material-icons">note_add</i>',
     //   to: "/add-new-post",
     // },
-    {
-      title: "ตัวอย่าง",
-      htmlBefore: '<i class="material-icons">view_module</i>',
-      to: "/ex",
-    },
+    // {
+    //   title: "ตัวอย่าง",
+    //   htmlBefore: '<i class="material-icons">view_module</i>',
+    //   to: "/ex",
+    // },
     // {
     //   title: "ตัวอย่างตาราง",
     //   htmlBefore: '<i class="material-icons">table_chart</i>',

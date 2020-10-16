@@ -68,10 +68,50 @@ app.post("/chaeckownerid", (req,res)=>{
 		})
 })
 
+app.post("/chat",(req,res) =>{
+	dbs.query(`SELECT * FROM users WHERE id = ${req.body.data.id} `)
+		.on('result', function (value) {
+				res.json(value.name)
+		})
+
+})
+
+
+app.post("/createroom",(req,res)=>{
+	console.log("ddddddddd",req.body.datas)
+	var sql = "INSERT INTO roomchat (iduser1,iduser2,nameuser1,nameuser2) VALUES ?"
+	var values = [`${req.body.datas.iduser1}`, `${req.body.datas.iduser2}`,`${req.body.datas.nameuser1}`,`${req.body.datas.nameuser2}`];
+	dbs.query(sql, [[values]], function (err, result) {
+		if (err) throw err;
+		res.json("เรียบร้อย")
+	})
+
+})
+
+app.post("/getofferdata",(req,res) =>{
+	dbs.query(`SELECT * FROM offer WHERE ownerid = ${req.body.data.id} `)
+		.on('result', function (value) {
+			editproduct.push({
+				backgroundImage: value.image,
+				category: "เครื่องใช้ในบ้าน",
+				categoryTheme: "warning",
+				title: value.dis,
+				id: value.idoffer
+			})
+
+		}).on('end', function () {
+			res.json(editproduct)
+			editproduct = []
+
+		})
+
+
+})
+
 
 app.post("/offer", (req,res) =>{
-	var sql = "INSERT INTO offer (idproduct,idoffer,image,dis,ownerid) VALUES ?"
-	var values = [`${req.body.datas.idproduct}`, `${req.body.datas.idoffer}`,`${req.body.datas.image}`,`${req.body.datas.dis}`,`${req.body.datas.ownerid}`];
+	var sql = "INSERT INTO offer (idproduct,idoffer,image,dis,ownerid,status) VALUES ?"
+	var values = [`${req.body.datas.idproduct}`, `${req.body.datas.idoffer}`,`${req.body.datas.image}`,`${req.body.datas.dis}`,`${req.body.datas.ownerid}, '0'`];
 	dbs.query(sql, [[values]], function (err, result) {
 		if (err) throw err;
 		res.json("เรียบร้อย")

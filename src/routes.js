@@ -20,19 +20,16 @@ import Dialog from "./views/dialog"
 import Addproduct from "./views/Addproduct"
 import Register from './views/Register'
 import Showproduct from './views/Showproduct'
-<<<<<<< HEAD
 import Notification from './views/Notification'
-=======
 import Editproduct from './views/editproduct'
 import Offer from './views/Offer'
 
->>>>>>> 305575189afe2109d2c4652c010205ed85bda0d3
 
 export default [
 
   <BrowserRouter>
     <Switch>
-      <Route path="/notification">
+      <Route path="/detailoffer">
         <DefaultLayout>
           <Notification />
         </DefaultLayout>
