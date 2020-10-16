@@ -20,12 +20,18 @@ import Dialog from "./views/dialog"
 import Addproduct from "./views/Addproduct"
 import Register from './views/Register'
 import Showproduct from './views/Showproduct'
+import Notification from './views/Notification'
 
 export default [
 
   <BrowserRouter>
     <Switch>
-    <Route path="/editprofile">
+      <Route path="/notification">
+        <DefaultLayout>
+          <Notification />
+        </DefaultLayout>
+      </Route>
+      <Route path="/editprofile">
         <DefaultLayout>
           <UserProfileLite />
         </DefaultLayout>
@@ -63,8 +69,8 @@ export default [
         </DefaultLayout>
       </Route>
       <Route path="/chat">
-      <DefaultLayout>
-        <Chat />
+        <DefaultLayout>
+          <Chat />
         </DefaultLayout>
       </Route>
       <Route path="/">
