@@ -16,13 +16,7 @@ import jwt_decode from "jwt-decode";
 
 export default function editproduct() {
     const [decoded, setdecoded] = useState()
-    const [MyPosts, setMyPosts] = useState([{
-        backgroundImage: "https://cf.shopee.co.th/file/c3ec88deff68e3bc52e3813caf1d3c2a",
-        category: "เครื่องใช้ในบ้าน",
-        categoryTheme: "warning",
-        title: "หมอนแมวนุ่มฟู",
-        id: "1"
-    },])
+    const [MyPosts, setMyPosts] = useState([])
 
     useEffect(() => {
         if (localStorage.usertoken !== undefined) {
@@ -32,7 +26,7 @@ export default function editproduct() {
             let data = {
                 id: decoded.id
               }
-            axios.post("http://localhost:8080/geteditproduct",{data}).then(res => {
+            axios.post("https://commath-phattaraphon.tk/geteditproduct",{data}).then(res => {
                 console.log("dfdfdf",res.data)
                 setMyPosts(res.data)
                 
@@ -50,7 +44,7 @@ export default function editproduct() {
             id: value
           }
         
-            axios.post("http://localhost:8080/dataedit",{data}).then(res => {
+            axios.post("https://commath-phattaraphon.tk/dataedit",{data}).then(res => {
                        console.log(res.data)
                        window.location = "/editproduct"
               
@@ -81,7 +75,7 @@ export default function editproduct() {
                         <Card small className="card-post card-post--1"  >
                             <div
                                 className="card-post__image"
-                                style={{ backgroundImage: `url(${"http://localhost:8080/image/"+post.backgroundImage})` }}
+                                style={{ backgroundImage: `url(${"https://commath-phattaraphon.tk/image/"+post.backgroundImage})` }}
 
                             >
 

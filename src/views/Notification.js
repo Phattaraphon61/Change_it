@@ -178,13 +178,7 @@ import jwt_decode from "jwt-decode";
 
 export default function Notification() {
     const [decoded, setdecoded] = useState()
-    const [MyPosts, setMyPosts] = useState([{
-        backgroundImage: "https://cf.shopee.co.th/file/c3ec88deff68e3bc52e3813caf1d3c2a",
-        category: "เครื่องใช้ในบ้าน",
-        categoryTheme: "warning",
-        title: "หมอนแมวนุ่มฟู",
-        id: "1"
-    },])
+    const [MyPosts, setMyPosts] = useState([])
 
     useEffect(() => {
         if (localStorage.usertoken !== undefined) {
@@ -194,7 +188,7 @@ export default function Notification() {
             let data = {
                 id: decoded.id
             }
-            axios.post("http://localhost:8080/getofferdata", { data }).then(res => {
+            axios.post("https://commath-phattaraphon.tk/getofferdata", { data }).then(res => {
                 console.log("dfdfdf", res.data)
                 setMyPosts(res.data)
                 if(res.data == "YES"){
@@ -216,7 +210,7 @@ export default function Notification() {
             id: value
         }
 
-        axios.post("http://localhost:8080/chat", { data }).then(res => {
+        axios.post("https://commath-phattaraphon.tk/chat", { data }).then(res => {
             console.log("chatt", res.data)
 
             let datas = {
@@ -227,7 +221,7 @@ export default function Notification() {
 
             }
 
-            axios.post("http://localhost:8080/createroom", { datas }).then(res => {
+            axios.post("https://commath-phattaraphon.tk/createroom", { datas }).then(res => {
                 console.log("chattggg", res.data)
 
                 window.location = "/chat"
@@ -263,7 +257,7 @@ export default function Notification() {
                         <Card small className="card-post card-post--1"  >
                             <div
                                 className="card-post__image"
-                                style={{ backgroundImage: `url(${"http://localhost:8080/image/" + post.backgroundImage})` }}
+                                style={{ backgroundImage: `url(${"https://commath-phattaraphon.tk/image/" + post.backgroundImage})` }}
 
                             >
 

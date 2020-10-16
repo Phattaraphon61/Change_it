@@ -111,7 +111,7 @@ app.post("/getofferdata",(req,res) =>{
 
 app.post("/offer", (req,res) =>{
 	var sql = "INSERT INTO offer (idproduct,idoffer,image,dis,ownerid,status) VALUES ?"
-	var values = [`${req.body.datas.idproduct}`, `${req.body.datas.idoffer}`,`${req.body.datas.image}`,`${req.body.datas.dis}`,`${req.body.datas.ownerid}, '0'`];
+	var values = [`${req.body.datas.idproduct}`, `${req.body.datas.idoffer}`,`${req.body.datas.image}`,`${req.body.datas.dis}`,`${req.body.datas.ownerid}`, '0'];
 	dbs.query(sql, [[values]], function (err, result) {
 		if (err) throw err;
 		res.json("เรียบร้อย")

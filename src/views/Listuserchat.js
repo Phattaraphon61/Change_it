@@ -8,7 +8,7 @@ import io from 'socket.io-client'
 import jwt_decode from "jwt-decode";
 
 export default function Listuserchat() {
-  const socket = io.connect('http://localhost:3020')
+  const socket = io.connect('https://www.https://commath-phattaraphon.tk')
   const [list, setlist] = useState([])
   const [idd, setidd] = useState()
 

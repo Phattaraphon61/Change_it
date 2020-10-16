@@ -404,19 +404,8 @@ import axios from "axios"
 import io from 'socket.io-client'
 
 export default function BlogPosts() {
- const socket = io.connect('http://localhost:3020')
- const [PostsListOne, setPostsListOne] = useState([{
-  backgroundImage: "",
-  category: "หนังสือ",
-  categoryTheme: "primary",
-  author: "DekShaoKhao ",
-  authorAvatar:
-    "https://scontent.fbkk14-1.fna.fbcdn.net/v/t1.0-9/117383726_2258739107605477_5898861422442131179_n.jpg?_nc_cat=106&_nc_sid=174925&_nc_ohc=JdzlAiDS-uIAX8WxtkU&_nc_ht=scontent.fbkk14-1.fna&oh=1c174a46de4c54dae823006b6bc628dd&oe=5F929DE2",
-  title: "รวมข้อสอบ GAT PAT1 PAT2 ปี 52",
-  body: "นัดแลกได้ในวาริน ในเมืองหรือส่งไปรษณีย์ทักแชทมาเลยจ้า",
-  date: "อำเภอวารินชำราบ,อุบลราชธานี,ไทย",
-  id: "1"
-}])
+ const socket = io.connect('https://www.https://commath-phattaraphon.tk')
+ const [PostsListOne, setPostsListOne] = useState([])
 
 
 useEffect(() => {
@@ -430,7 +419,7 @@ useEffect(() => {
     id: "Test"
   }
 
-    axios.get("http://localhost:8080/getproduct").then(res => {
+    axios.get("https://commath-phattaraphon.tk/getproduct").then(res => {
       console.log("dfdfdf",res.data)
       setPostsListOne(res.data)
       
@@ -461,7 +450,7 @@ useEffect(() => {
             <Card small className="card-post card-post--1"  >
               <div
                 className="card-post__image"
-                style={{ backgroundImage: `url(${"http://localhost:8080/image/"+post.backgroundImage})` }}
+                style={{ backgroundImage: `url(${"https://commath-phattaraphon.tk/image/"+post.backgroundImage})` }}
 
               >
 

@@ -6,7 +6,7 @@ export default function Datachat(props) {
     const [decoded, setdecoded] = useState()
     const { id, ...rest } = props;
     const [msg, setmsg] = useState([])
-    const socket = io.connect('http://localhost:3020')
+    const socket = io.connect('https://www.https://commath-phattaraphon.tk')
     useEffect(() => {
         if(localStorage.usertoken !== undefined){
             const token = localStorage.usertoken;

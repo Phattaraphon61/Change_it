@@ -22,55 +22,55 @@ import jwt_decode from "jwt-decode";
 
 const currencies = [
   {
-    value: 'plzselect',
+    value: 'เลือกหมวดหมู่',
     label: 'เลือกหมวดหมู่',
   },
   {
-    value: 'Book',
+    value: 'หนังสือ',
     label: 'หนังสือ',
   },
   {
-    value: 'Bueaty',
+    value: 'ความงาม',
     label: 'ความงาม',
   },
   {
-    value: 'game',
+    value: 'เกม',
     label: 'เกม',
   },
   {
-    value: 'Media',
+    value: 'มีเดีย',
     label: 'มีเดีย',
   },
   {
-    value: 'Toys',
+    value: 'ของเล่น',
     label: 'ของเล่น',
   },
   {
-    value: 'Electrical',
+    value: 'เครื่องใช้ไฟฟ้า',
     label: 'เครื่องใช้ไฟฟ้า',
   },
   {
-    value: 'MenFashion',
+    value: 'แฟชั่นชาย',
     label: 'แฟชั่นชาย',
   },
   {
-    value: 'Electronic',
+    value: 'อุปกรณ์อิเล็กทรอนิกส์',
     label: 'อุปกรณ์อิเล็กทรอนิกส์',
   },
   {
-    value: 'WomenFashion',
+    value: 'แฟชั่นผู้หญิง',
     label: 'แฟชั่นผู้หญิง',
   },
   {
-    value: 'HomeAndGarden',
+    value: 'บ้านและสวน',
     label: 'บ้านและสวน',
   },
   {
-    value: 'Outdoor',
+    value: 'กลางแจ้ง',
     label: 'กลางแจ้ง',
   },
   {
-    value: 'Fitness',
+    value: 'ฟิตเนส',
     label: 'ฟิตเนส',
   },
 ];
@@ -254,7 +254,7 @@ export default function Addproduct() {
       let formData = new FormData();
           formData.append("selectedFile", datas);
           // console.log("gggggg",datas)
-            axios.post("http://localhost:8080/image", formData).then(result => {
+            axios.post("https://commath-phattaraphon.tk/image", formData).then(result => {
               result.data.map((value) =>{
                 // setnameimage(prevent => ([...prevent,value]))
                 nameimg.push(value)
@@ -288,7 +288,7 @@ const adddata = () =>{
     imageproduct: nameimg[0]
 
   }
-  axios.post("http://localhost:8080/addproduct", { data }).then(res => {
+  axios.post("https://commath-phattaraphon.tk/addproduct", { data }).then(res => {
          addimage(res.data)
   })
 
@@ -301,7 +301,7 @@ const addimage = (id) =>{
         id:id,
         name: value
       }
-      axios.post("http://localhost:8080/addimageproduct", { data }).then(res => {
+      axios.post("https://commath-phattaraphon.tk/addimageproduct", { data }).then(res => {
 
       })
     })

@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const config = "http://localhost:8080";
+const config = "https://commath-phattaraphon.tk";
 
 
 export const signin = user=>{

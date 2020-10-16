@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const config = "http://localhost:8080";
+const config = "https://commath-phattaraphon.tk";
 
 
 export const registers = user=>{
@@ -25,7 +25,7 @@ export const registers = user=>{
         "address": `${user.address}`,
         "city":`${user.city}`,
         "roles":["user"],
-        "image":"http://localhost:8080/image/avatar.png",
+        "image":"https://commath-phattaraphon.tk/image/avatar.png",
 
     
   }).then(response => {

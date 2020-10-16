@@ -54,7 +54,7 @@ export default function UserAccountDetails() {
       city: city,
     }
 
-    axios.post("http://localhost:8080/test", { data }).then(res => {
+    axios.post("https://commath-phattaraphon.tk/test", { data }).then(res => {
       // console.log("fffffffffff",res) 
       if (res.data !== "Erro" && res.data !== undefined) {
         localStorage.setItem("usertoken", res.data);

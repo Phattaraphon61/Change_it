@@ -37,7 +37,7 @@ export default function Offer() {
             idproduct: window.location.href.split('/')[4]
         }
 
-        axios.post("http://localhost:8080/chaeckownerid", { data }).then(res => {
+        axios.post("https://commath-phattaraphon.tk/chaeckownerid", { data }).then(res => {
             console.log("fffffffffff",res.data)
             let datas = {
                 idproduct: window.location.href.split('/')[4],
@@ -47,7 +47,7 @@ export default function Offer() {
                 ownerid:res.data
             }
     
-            axios.post("http://localhost:8080/offer", { datas }).then(res => {
+            axios.post("https://commath-phattaraphon.tk/offer", { datas }).then(res => {
     
                 
             })
@@ -76,7 +76,7 @@ export default function Offer() {
             let formData = new FormData();
             formData.append("selectedFile", selectedFile);
 
-            axios.post("http://localhost:8080/image", formData).then(result => {
+            axios.post("https://commath-phattaraphon.tk/image", formData).then(result => {
                 summit(result.data)
             });
         } else {

@@ -78,13 +78,7 @@ export default function Showproduct() {
     const classes = useStyles();
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
-    const [tutorialSteps, setTutorialSteps] = React.useState([
-        {
-            label: 'San Francisco – Oakland Bay Bridge, United States',
-            imgPath:
-                'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-        },
-    ])
+    const [tutorialSteps, setTutorialSteps] = React.useState([])
     const [name, setname] = useState()
     const [city, setcity] = useState()
     const [nameproduct, setnameproduct] = useState()
@@ -110,7 +104,7 @@ export default function Showproduct() {
         let data = {
             id: window.location.href.split('/')[4]
         }
-        axios.post("http://localhost:8080/showproduct", { data }).then(res => {
+        axios.post("https://commath-phattaraphon.tk/showproduct", { data }).then(res => {
             console.log("dfdfdfgggggggggg", res.data)
             setname(res.data[0].author)
             setcity(res.data[0].date)
@@ -120,7 +114,7 @@ export default function Showproduct() {
             setcategory(res.data[0].category)
 
 
-axios.post("http://localhost:8080/showproductimage", { data }).then(res => {
+axios.post("https://commath-phattaraphon.tk/showproductimage", { data }).then(res => {
     console.log("imagesssss",res.data)
     setTutorialSteps(res.data)
 
@@ -169,7 +163,7 @@ axios.post("http://localhost:8080/showproductimage", { data }).then(res => {
                                 {tutorialSteps.map((step, index) => (
                                     <div key={step.label}>
                                         {Math.abs(activeStep - index) <= 2 ? (
-                                            <img className={classes.img} src={"http://localhost:8080/image/"+step.imgPath} alt={step.label} style={{height:"450px"}} />
+                                            <img className={classes.img} src={"https://commath-phattaraphon.tk/image/"+step.imgPath} alt={step.label} style={{height:"450px"}} />
                                         ) : null}
                                     </div>
                                 ))}
